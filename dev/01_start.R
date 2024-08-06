@@ -20,11 +20,11 @@
 ##
 golem::fill_desc(
   pkg_name = "statenttool", # The Name of the package containing the App
-  pkg_title = "PKG_TITLE", # The Title of the package containing the App
-  pkg_description = "PKG_DESC.", # The Description of the package containing the App
-  author_first_name = "AUTHOR_FIRST", # Your First Name
-  author_last_name = "AUTHOR_LAST", # Your Last Name
-  author_email = "AUTHOR@MAIL.COM", # Your Email
+  pkg_title = "STATENT-Tool", # The Title of the package containing the App
+  pkg_description = "Ein Tool zum Zusammenstellen von Anzahl Arbeitsstätten, Beschäftigten und Betrieben nach Zeit, Raum, Branche, Rechtsform und Betriebsgrösse", # The Description of the package containing the App
+  author_first_name = "Aline", # Your First Name
+  author_last_name = "Metzler", # Your Last Name
+  author_email = "aline.metzler@zuerich.ch", # Your Email
   repo_url = NULL, # The URL of the GitHub Repo (optional),
   pkg_version = "0.0.0.9000" # The Version of the package containing the App
 )
