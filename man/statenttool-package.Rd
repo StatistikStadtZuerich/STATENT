@@ -4,12 +4,12 @@
 \name{statenttool-package}
 \alias{statenttool}
 \alias{statenttool-package}
-\title{statenttool: An Amazing Shiny App}
+\title{statenttool: STATENT-Tool}
 \description{
-What the package does (one paragraph).
+Ein Tool zum Zusammenstellen von Anzahl Arbeitsstätten, Beschäftigten und Betrieben nach Zeit, Raum, Branche, Rechtsform und Betriebsgrösse
 }
 \author{
-\strong{Maintainer}: firstname lastname \email{your@email.com}
+\strong{Maintainer}: Aline Metzler \email{aline.metzler@zuerich.ch}
 
 }
 \keyword{internal}
