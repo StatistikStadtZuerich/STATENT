@@ -8,6 +8,7 @@
 #' @importFrom knitr kable
 #' @import openxlsx
 #' @import reactable
+#' @importFrom readr read_csv
 #' @importFrom readxl read_excel
 #' @import shiny
 #' @importFrom shinycssloaders withSpinner
@@ -17,5 +18,6 @@
 #' 
 #' 
 ## usethis namespace: start
+#' @importFrom readr read_csv
 ## usethis namespace: end
 NULL
