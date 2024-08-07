@@ -11,5 +11,4 @@ read_data <- function() {
   
   list(data1 = data1, data2 = data2)
 }
-test <- read_data()
 

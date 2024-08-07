@@ -5,12 +5,23 @@
 #' @import shiny
 #' @noRd
 app_ui <- function(request) {
+  
+  choices_inputs <- list(
+    choices_area = unique(data_vector[["data1"]]$RaumLang),
+    choices_sector = unique(data_vector[["data1"]]$BrancheLang),
+    choices_size = unique(data_vector[["data2"]]$BetriebsgrLang),
+    choices_legal = unique(data_vector[["data2"]]$RechtsformLang),
+    choices_year = unique(data_vector[["data1"]]$Jahr)
+  )
+  
   tagList(
     # Leave this function for adding external resources
     golem_add_external_resources(),
     # Your application UI logic
     fluidPage(
-      h1("statenttool")
+      mod_input_ui(id = "input_widgets",
+                   choices_inputs = choices_inputs)
+      
     )
   )
 }
