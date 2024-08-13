@@ -13,27 +13,27 @@ mod_input_ui <- function(id, choices_inputs){
     
     sszSelectInput(ns("select_area"), "Geografischer Raum:", 
                    choices = choices_inputs[["choices_area"]], 
-                   selected = "LAX"),
+                   selected = "Ganze Stadt"),
     
     sszSelectInput(ns("select_sector"), "Sektor:", 
-                   choices = c("HOU", "LAX", "JFK", "SEA"), 
-                   selected = "LAX"),
+                   choices = choices_inputs[["choices_sector"]], 
+                   selected = "Total"),
+                    
+    sszRadioButtons(ns("select_size"), "Betriebsgrösse:",
+                    choices = choices_inputs[["choices_size"]], 
+                    selected = min(choices = choices_inputs[["choices_size"]])),
     
-    sszRadioButtons(ns("select_size"),
-                    "Betriebsgrösse:",
-                    # choices = choicesapp[["choices_price"]]
-                    choices = c("Preis pro m² Grundstücksfläche",
-                                "Preis pro m² Grundstücksfläche, abzgl. Versicherungswert")),
-    
-    sszSelectInput(ns("select_legal"), "Rechtsform:", 
-                   choices = c("HOU", "LAX", "JFK", "SEA"), 
-                   selected = "LAX"),
-    
-    sszSliderInput(inputId = ns("select_year"), 
+    sszSelectInput(ns("select_legal"), "Rechtsform:",
+                   choices = choices_inputs[["choices_legal"]],
+                   selected = "Alle Rechtsformen"),
+  
+    sszSliderInput(inputId = ns("select_year"),
                    label = "Jahr:", 
-                   value = 30, 
-                   min = 0, 
-                   max = 100),
+                   value = c(2011, 2013), 
+                   min = min(choices = choices_inputs[["choices_year"]]), 
+                   max = max(choices = choices_inputs[["choices_year"]]),
+                   sep = ""
+                   ),
     
     
     sszActionButton(ns("ActionButtonId"), "Abfrage starten")
