@@ -22,10 +22,16 @@ app_ui <- function(request) {
       sidebarPanel(
         mod_input_ui(id = "input_widgets",
                    choices_inputs = choices_inputs),
-        sszActionButton(ns("ActionButtonId"), "Abfrage starten")
+        conditionalPanel(
+          condition = "input.query_start == 0",
+          sszActionButton("query_start", "Abfrage starten")
+        )
       ),
       mainPanel(
-        mod_result_ui(id = "results")
+        conditionalPanel(
+          condition = "input.query_start",
+          mod_result_ui(id = "results")
+        )
       )
       
     )
