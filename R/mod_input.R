@@ -23,13 +23,21 @@ mod_input_ui <- function(id, choices_inputs){
                      selected = "Total")
     ),
                     
-    sszRadioButtons(ns("select_size"), "Betriebsgrösse:",
+    conditionalPanel(
+      condition = 'input.select_sector == "Alle Sektoren"',
+      ns = ns,
+      sszRadioButtons(ns("select_size"), "Betriebsgrösse:",
                     choices = choices_inputs[["choices_size"]], 
-                    selected = min(choices = choices_inputs[["choices_size"]])),
+                    selected = min(choices = choices_inputs[["choices_size"]]))
+      ),
     
-    sszSelectInput(ns("select_legal"), "Rechtsform:",
+    conditionalPanel(
+      condition = 'input.select_sector == "Alle Sektoren"',
+      ns = ns,
+      sszSelectInput(ns("select_legal"), "Rechtsform:",
                    choices = choices_inputs[["choices_legal"]],
-                   selected = "Alle Rechtsformen"),
+                   selected = "Alle Rechtsformen")
+      ),
   
     sszSliderInput(inputId = ns("select_year"),
                    label = "Jahr:", 
