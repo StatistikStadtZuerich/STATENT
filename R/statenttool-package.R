@@ -4,6 +4,7 @@
 #' @importFrom data.table fread
 #' @import dplyr 
 #' @importFrom golem add_resource_path activate_js favicon bundle_resources
+#' @import icons
 #' @import jpeg
 #' @importFrom knitr kable
 #' @import openxlsx

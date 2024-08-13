@@ -717,6 +717,33 @@
       ],
       "Hash": "320c8fe23fcb25a6690ef7bdb6a3a705"
     },
+    "icons": {
+      "Package": "icons",
+      "Version": "0.2.0",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteUsername": "mitchelloharawild",
+      "RemoteRepo": "icons",
+      "RemoteRef": "master",
+      "RemoteSha": "18ffa115f4053485900c4aed2ba7a67b07d9fbe9",
+      "RemoteHost": "api.github.com",
+      "Requirements": [
+        "R",
+        "cli",
+        "crayon",
+        "glue",
+        "htmltools",
+        "jsonlite",
+        "knitr",
+        "rappdirs",
+        "rlang",
+        "rstudioapi",
+        "stringr",
+        "utils",
+        "xml2"
+      ],
+      "Hash": "04c99d5fef12986b9bfc5f66c8e50d2f"
+    },
     "ini": {
       "Package": "ini",
       "Version": "0.3.1",
@@ -1857,8 +1884,8 @@
       "Package": "zuericssstyle",
       "Version": "0.0.1.0003",
       "Source": "GitHub",
-      "RemoteType": "github",
       "Remotes": "github::daqana/dqshiny",
+      "RemoteType": "github",
       "RemoteHost": "api.github.com",
       "RemoteRepo": "zuericssstyle",
       "RemoteUsername": "StatistikStadtZuerich",

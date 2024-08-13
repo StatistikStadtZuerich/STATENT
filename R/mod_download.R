@@ -9,9 +9,30 @@
 #' @importFrom shiny NS tagList 
 mod_download_ui <- function(id){
   ns <- NS(id)
+  ### Set up directory for icons
+  ssz_icons <- icon_set("inst/app/www/icons/")
+  
   tagList(
- 
+    h3("Daten herunterladen"),
+    tags$div(
+      id = "downloadWrapperId",
+      class = "downloadWrapperDiv",
+      sszDownloadButton(ns("csvDownload"),
+                        label = "csv",
+                        image = img(ssz_icons$download)
+      ),
+      sszDownloadButton(ns("excelDownload"),
+                        label = "xlsx",
+                        image = img(ssz_icons$download)
+      ),
+      sszOgdDownload(
+        outputId = ns("ogdDown"),
+        label = "OGD",
+        href = "https://data.stadt-zuerich.ch/dataset?tags=lima",
+        image = img(ssz_icons$link)
+      )
   )
+)
 }
     
 #' download Server Functions
