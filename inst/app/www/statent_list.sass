@@ -1,5 +1,5 @@
-$list_bold: 'Kreis 1', 'Kreis 2'
+$list_bold: Ganze Stadt, Kreis 1, Kreis 2, Kreis 3, Kreis 4, Kreis 5, Kreis 6, Kreis 7, Kreis 7, Kreis 8, Kreis 9, Kreis 10, Kreis 11, Kreis 12
 
-@each $list_bold
-  .icon-#{$list_bold}
-    font-weight: bold
+@each $element in $list_bold
+  .option[data-value = '#{$element}' ]
+    font-weight: bold !important
