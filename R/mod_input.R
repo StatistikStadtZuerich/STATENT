@@ -37,10 +37,7 @@ mod_input_ui <- function(id, choices_inputs){
                    min = min(choices = choices_inputs[["choices_year"]]), 
                    max = max(choices = choices_inputs[["choices_year"]]),
                    sep = ""
-                   ),
-    
-    
-    sszActionButton(ns("ActionButtonId"), "Abfrage starten")
+                   )
  
   )
 }

@@ -7,4 +7,5 @@
 app_server <- function(input, output, session) {
   # Your application server logic
   mod_input_server("input_widgets")
+  mod_result_server("results")
 }

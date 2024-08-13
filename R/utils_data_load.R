@@ -12,3 +12,14 @@ read_data <- function() {
   list(data1 = data1, data2 = data2)
 }
 
+#' prepare_data 
+#'
+#' @description A utils function
+#'
+#' @return The return value, if any, from executing the utility.
+#'
+#' @noRd
+prepare_data <- function(data_sector, data_size_legal) {
+  # data_sector <- data_vector[["data1"]]
+  # data_size_legal <- data_vector[["data2"]]
+}

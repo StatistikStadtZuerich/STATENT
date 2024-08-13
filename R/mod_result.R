@@ -10,7 +10,11 @@
 mod_result_ui <- function(id){
   ns <- NS(id)
   tagList(
- 
+    h1(
+      "Die Resultate entsprechen Ihren Eingabekriterien"
+    ),
+    
+    reactableOutput(ns("results_table"))
   )
 }
     
@@ -20,7 +24,9 @@ mod_result_ui <- function(id){
 mod_result_server <- function(id){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
- 
+    output$results_table <- renderReactable(
+      
+    )
   })
 }
     

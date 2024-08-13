@@ -19,8 +19,14 @@ app_ui <- function(request) {
     golem_add_external_resources(),
     # Your application UI logic
     fluidPage(
-      mod_input_ui(id = "input_widgets",
-                   choices_inputs = choices_inputs)
+      sidebarPanel(
+        mod_input_ui(id = "input_widgets",
+                   choices_inputs = choices_inputs),
+        sszActionButton(ns("ActionButtonId"), "Abfrage starten")
+      ),
+      mainPanel(
+        mod_result_ui(id = "results")
+      )
       
     )
   )
