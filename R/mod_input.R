@@ -15,9 +15,13 @@ mod_input_ui <- function(id, choices_inputs){
                    choices = choices_inputs[["choices_area"]], 
                    selected = "Ganze Stadt"),
     
-    sszSelectInput(ns("select_sector"), "Sektor:", 
-                   choices = choices_inputs[["choices_sector"]], 
-                   selected = "Total"),
+    conditionalPanel(
+      condition = 'input.select_size == "Alle Betriebsgrössen" && input.select_legal == "Alle Rechtsformen"',
+      ns = ns,
+      sszSelectInput(ns("select_sector"), "Sektor:", 
+                     choices = choices_inputs[["choices_sector"]], 
+                     selected = "Total")
+    ),
                     
     sszRadioButtons(ns("select_size"), "Betriebsgrösse:",
                     choices = choices_inputs[["choices_size"]], 
