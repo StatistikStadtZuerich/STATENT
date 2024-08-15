@@ -24,6 +24,7 @@ mod_result_ui <- function(id){
 mod_result_server <- function(id, data_table){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
+    
     output$results_table <- renderReactable(
       reactable(data_table)
     )

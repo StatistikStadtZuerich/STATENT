@@ -28,12 +28,8 @@ mod_input_ui <- function(id, choices_inputs){
       ns = ns,
       sszRadioButtons(ns("select_size"), "Betriebsgrösse:",
                     choices = choices_inputs[["choices_size"]], 
-                    selected = min(choices = choices_inputs[["choices_size"]]))
-      ),
-    
-    conditionalPanel(
-      condition = 'input.select_sector == "Alle Sektoren"',
-      ns = ns,
+                    selected = min(choices = choices_inputs[["choices_size"]])),
+   
       sszSelectInput(ns("select_legal"), "Rechtsform:",
                    choices = choices_inputs[["choices_legal"]],
                    selected = "Alle Rechtsformen")
@@ -56,7 +52,19 @@ mod_input_ui <- function(id, choices_inputs){
 mod_input_server <- function(id){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
- 
+    
+    # Filter Data here 
+    # filter_table_data(data_table, 
+    #                   reactive_parameters = list(
+    #                     select_area = reactive(input$select_area),
+    #                     select_sector = reactive(input$select_sector),
+    #                     select_size = reactive(input$select_size),
+    #                     select_legal = reactive(input$select_legal),
+    #                     select_year = reactive(input$select_year)
+    #                   ))
+    
+    
+    
   })
 }
     
