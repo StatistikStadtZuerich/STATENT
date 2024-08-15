@@ -20,6 +20,51 @@ read_data <- function() {
 #'
 #' @noRd
 prepare_data <- function(data_sector, data_size_legal) {
-  # data_sector <- data_vector[["data1"]]
-  # data_size_legal <- data_vector[["data2"]]
+  data_sector_mutate <- data_sector |> 
+    mutate(RechtsformSort = 0,
+           RechtsformLang = "Alle Rechtsformen",
+           asBetriebsgrSort = 0,
+           BetriebsgrLang = "Alle Betriebsgrössen") |> 
+    order(.data[["Jahr"]],
+                   .data[["RaumSort"]],
+                   .data[["RaumLang"]],
+                   .data[["BrancheSort"]],
+                   .data[["BrancheCd"]],
+                   .data[["BrancheLang"]],
+                   .data[["RechtsformSort"]],
+                   .data[["RechtsformLang"]],
+                   .data[["asBetriebsgrSort"]],
+                   .data[["BetriebsgrLang"]],
+                   .data[["Arbeitsstaetten"]],
+                   .data[["AnzBesch"]],
+                   .data[["AnzBeschW"]],
+                   .data[["AnzBeschM"]],
+                   .data[["AnzVZAano"]],
+                   .data[["AnzVZAWano"]],
+                   .data[["AnzVZAMano"]]
+    )
+  data_size_legal_mutate <- data_size_legal |> 
+    mutate(BrancheSort = 0,
+           BrancheCd = "0",
+           BrancheLang = "Alle Sektoren") |> 
+    order(.data[["Jahr"]],
+                   .data[["RaumSort"]],
+                   .data[["RaumLang"]],
+                   .data[["BrancheSort"]],
+                   .data[["BrancheCd"]],
+                   .data[["BrancheLang"]],
+                   .data[["RechtsformSort"]],
+                   .data[["RechtsformLang"]],
+                   .data[["asBetriebsgrSort"]],
+                   .data[["BetriebsgrLang"]],
+                   .data[["Arbeitsstaetten"]],
+                   .data[["AnzBesch"]],
+                   .data[["AnzBeschW"]],
+                   .data[["AnzBeschM"]],
+                   .data[["AnzVZAano"]],
+                   .data[["AnzVZAWano"]],
+                   .data[["AnzVZAMano"]]
+    )
+  data_merge <- bind_rows(data_sector_mutate, data_size_legal_mutate)
 }
+x <- prepare_data(data_vector[["data1"]], data_vector[["data2"]])
