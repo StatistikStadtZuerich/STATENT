@@ -6,10 +6,10 @@
 #'
 #' @noRd
 read_data <- function() {
-  data1 <- read_csv("./temp_data/data1.csv")
-  data2 <- read_csv("./temp_data/data2.csv")
+  OD2551 <- read_csv("./temp_data/WIR255OD2551.csv")
+  OD2552 <- read_csv("./temp_data/WIR255OD2552.csv")
   
-  list(data1 = data1, data2 = data2)
+  list(OD2551 = OD2551, OD2552 = OD2552)
 }
 
 #' prepare_data 
