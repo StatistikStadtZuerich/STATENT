@@ -64,7 +64,7 @@ mod_result_server <- function(id, data_table, input_area, input_sector, input_si
 
     
     output$results_table <- renderReactable(
-      reactable(data_table())
+      reactable_table(data_table())
     )
   })
 }

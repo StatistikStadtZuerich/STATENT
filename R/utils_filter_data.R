@@ -16,7 +16,7 @@ filter_table_data <- function(data_table, input_values) {
            .data[["Jahr"]] >= input_values$select_year[1],
            .data[["Jahr"]] <= input_values$select_year[2]
            ) |> 
-    select(-contains(c("Cd", "Sort")))
+    select(-contains(c("Cd", "Sort", "Lang")))
 }
 # filter_table_data(x, 
 #                   input_values = list(
