@@ -10,8 +10,26 @@
 mod_result_ui <- function(id){
   ns <- NS(id)
   tagList(
-    h1(
-      "Die Resultate entsprechen Ihren Eingabekriterien"
+    
+    # Table Title (Sector)
+    tags$div(
+      id = ns("title_id"),
+      class = "title_div",
+      textOutput(ns("title"))
+    ),
+    
+    # Table Subtitle (Legal & Size)
+    tags$div(
+      id = ns("subtitle_id"),
+      class = "subtitle_div",
+      textOutput(ns("subtitle"))
+    ),
+
+    # Table Subsubtitle (Area)
+    tags$div(
+      id = ns("subSubtitle_id"),
+      class = "subSubtitle_div",
+      textOutput(ns("subSubtitle"))
     ),
     
     reactableOutput(ns("results_table"))
@@ -21,9 +39,29 @@ mod_result_ui <- function(id){
 #' result Server Functions
 #'
 #' @noRd 
-mod_result_server <- function(id, data_table){
+mod_result_server <- function(id, data_table, input_area, input_sector, input_size, input_legal){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
+
+    
+     # Title
+    output$title <- renderText({
+      input_sector()
+    }) |> 
+      bindEvent(input_sector())
+    
+    # Subtitle
+    output$subtitle <- renderText({
+      paste0(input_size(), ", ", input_legal())
+    }) |>
+      bindEvent(input_size(), input_legal())
+
+    # Sub-Subtitle
+    output$subSubtitle <- renderText({
+      paste0(input_area(), ", Medianpreise in CHF")
+    }) |>
+      bindEvent(input_area())
+
     
     output$results_table <- renderReactable(
       reactable(data_table())
