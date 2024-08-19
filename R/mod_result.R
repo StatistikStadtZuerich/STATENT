@@ -26,7 +26,7 @@ mod_result_server <- function(id, data_table){
     ns <- session$ns
     
     output$results_table <- renderReactable(
-      reactable(data_table)
+      reactable(data_table())
     )
   })
 }

@@ -39,6 +39,8 @@ mod_input_ui <- function(id, choices_inputs){
     sszSliderInput(inputId = ns("select_year"),
                    label = "Jahr:", 
                    value = c(2011, 2013), 
+                   step = 1,
+                   ticks = TRUE,
                    min = min(choices = choices_inputs[["choices_year"]]), 
                    max = max(choices = choices_inputs[["choices_year"]]),
                    sep = ""
@@ -50,26 +52,20 @@ mod_input_ui <- function(id, choices_inputs){
 #' input Server Functions
 #'
 #' @noRd 
-mod_input_server <- function(id, data_table){
+mod_input_server <- function(id, data_table2){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
     
     # Filter main data according to input
     filtered_data <- reactive({
-      filter_table_data(data_table, input
-                        # reactive_parameters = list(
-                        #   select_area = reactive(input$select_area),
-                        #   select_sector = reactive(input$select_sector),
-                        #   select_size = reactive(input$select_size),
-                        #   select_legal = reactive(input$select_legal)
-                        #   # select_year = reactive(input$select_year)
-                        # )
+      filter_table_data(data_table2, input
+                          # select_year = reactive(input$select_year)
+                          
                         )
+                        
     })
     
-    print(filtered_data)
-    
-    return(list("filtered_data" = filtered_data))
+    return(filtered_data)
     
   })
 }
