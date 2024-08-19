@@ -6,10 +6,12 @@
 #' @noRd
 app_server <- function(input, output, session) {
   # Your application server logic
-  reactive_inputs <- mod_input_server("input_widgets")
+  test <- prepare_data(data_vector[["OD2551"]], data_vector[["OD2552"]])
+  reactive_data <- mod_input_server("input_widgets", test)
+  print(reactive_data)
   
   mod_result_server("results", 
-                    data_vector[["data1"]]
+                    reactive_data$filtered_data
   )
   mod_download_server("download")
 }

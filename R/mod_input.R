@@ -50,21 +50,26 @@ mod_input_ui <- function(id, choices_inputs){
 #' input Server Functions
 #'
 #' @noRd 
-mod_input_server <- function(id){
+mod_input_server <- function(id, data_table){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
     
-    # Filter Data here 
-    # filter_table_data(data_table, 
-    #                   reactive_parameters = list(
-    #                     select_area = reactive(input$select_area),
-    #                     select_sector = reactive(input$select_sector),
-    #                     select_size = reactive(input$select_size),
-    #                     select_legal = reactive(input$select_legal),
-    #                     select_year = reactive(input$select_year)
-    #                   ))
+    # Filter main data according to input
+    filtered_data <- reactive({
+      filter_table_data(data_table, input
+                        # reactive_parameters = list(
+                        #   select_area = reactive(input$select_area),
+                        #   select_sector = reactive(input$select_sector),
+                        #   select_size = reactive(input$select_size),
+                        #   select_legal = reactive(input$select_legal)
+                        #   # select_year = reactive(input$select_year)
+                        # )
+                        )
+    })
     
+    print(filtered_data)
     
+    return(list("filtered_data" = filtered_data))
     
   })
 }

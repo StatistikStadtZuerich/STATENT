@@ -23,7 +23,7 @@ prepare_data <- function(data_sector, data_size_legal) {
   data_sector_mutate <- data_sector |> 
     mutate(RechtsformSort = 0,
            RechtsformLang = "Alle Rechtsformen",
-           asBetriebsgrSort = 0,
+           BetriebsgrSort = 0,
            BetriebsgrLang = "Alle Betriebsgrössen") |> 
     select(all_of(c("Jahr",
                     "RaumSort",
@@ -33,7 +33,7 @@ prepare_data <- function(data_sector, data_size_legal) {
                     "BrancheLang",
                     "RechtsformSort",
                     "RechtsformLang",
-                    "asBetriebsgrSort",
+                    "BetriebsgrSort",
                     "BetriebsgrLang")),
                   everything())
   data_size_legal_mutate <- data_size_legal |> 
@@ -48,10 +48,10 @@ prepare_data <- function(data_sector, data_size_legal) {
                     "BrancheLang",
                     "RechtsformSort",
                     "RechtsformLang",
-                    "asBetriebsgrSort",
+                    "BetriebsgrSort",
                     "BetriebsgrLang")),
            everything())
   
   data_merge <- bind_rows(data_sector_mutate, data_size_legal_mutate)
 }
-# x <- prepare_data(data_vector[["data1"]], data_vector[["data2"]])
+ # x <- prepare_data(data_vector[["OD2551"]], data_vector[["OD2552"]])

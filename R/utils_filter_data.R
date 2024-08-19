@@ -6,7 +6,7 @@
 #'
 #' @noRd
 
-filter_table_data <- function(data_table, reactive_parameters) {
+filter_table_data <- function(data_table, input_values) {
   # req(
   #   reactive_parameters$select_area, 
   #   reactive_parameters$select_sector,
@@ -17,12 +17,12 @@ filter_table_data <- function(data_table, reactive_parameters) {
   # )
   
   data_table |> 
-    filter(.data[["RaumLang"]] == reactive_parameters[["select_area"]](),
-           .data[["BrancheLang"]] == reactive_parameters[["select_sector"]](),
-           .data[["BetriebsgrLang"]] == reactive_parameters[["select_size"]](),
-           .data[["RechtsformLang"]] == reactive_parameters[["select_legal"]](),
-           .data[["Jahr"]] >= reactive_parameters[["select_year_min"]]()
-           # .data[["Jahr"]] <= reactive_parameters[["select_year_max"]]()
+    filter(.data[["RaumLang"]] == input_values[["select_area"]](),
+           .data[["BrancheLang"]] == input_values[["select_sector"]](),
+           .data[["BetriebsgrLang"]] == input_values[["select_size"]](),
+           .data[["RechtsformLang"]] == input_values[["select_legal"]]()
+           # .data[["Jahr"]] >= input_values[["select_year_min"]]()
+           # .data[["Jahr"]] <= input_values[["select_year_max"]]()
            ) |> 
-    select(contains(c("Cd", "Sort")))
+    select(-contains(c("Cd", "Sort")))
 }
