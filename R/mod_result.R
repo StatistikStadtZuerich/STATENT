@@ -58,7 +58,7 @@ mod_result_server <- function(id, data_table, input_area, input_sector, input_si
 
     # Sub-Subtitle
     output$subSubtitle <- renderText({
-      paste0(input_area(), ", Medianpreise in CHF")
+      paste0(input_area())
     }) |>
       bindEvent(input_area())
 

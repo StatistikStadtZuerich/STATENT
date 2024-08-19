@@ -38,10 +38,36 @@ mod_download_ui <- function(id){
 #' download Server Functions
 #'
 #' @noRd 
-mod_download_server <- function(id){
+mod_download_server <- function(id, data_table, input_area, input_sector, input_size, input_legal){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
  
+    ### Write Download Table
+    ## App 1
+    # CSV
+    output$csvDownload <- downloadHandler(
+      filename = function() {
+        name <- "testetst"
+        paste0(name, ".csv")
+      },
+      content = function(file) {
+        write.csv(data_table(), 
+                  file, row.names = FALSE, na = " ", fileEncoding = "UTF-8")
+      }
+    )
+    
+    # Excel
+    output$excelDownload <- downloadHandler(
+      filename = function() {
+        name <- "blabla"
+        paste0(name, ".xlsx")
+      },
+      content = function(file) {
+        
+        rlang::inject(export_excel(data_table, file, input_area, input_sector, input_size, input_legal ))
+      }
+    )
+    
   })
 }
     

@@ -17,6 +17,11 @@ app_server <- function(input, output, session) {
                     reactive_data[["input_legal"]]
                     
   )
-  mod_download_server("download")
+  mod_download_server("download",
+                      reactive_data[["filtered_data"]],
+                      reactive_data[["input_area"]],
+                      reactive_data[["input_sector"]],
+                      reactive_data[["input_size"]],
+                      reactive_data[["input_legal"]])
 }
 
