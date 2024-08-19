@@ -43,7 +43,7 @@ reactable_table <- function(target_data) {
                 # Format only numeric columns with thousands separators
                 if (!is.numeric(value)) {
                   return(value)
-                } else if (!is.na()) {
+                } else if (!is.na(value)) {
                   format(value, big.mark = "\ua0")
                 } else {
                   "( )"
