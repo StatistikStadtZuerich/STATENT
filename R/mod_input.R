@@ -20,7 +20,8 @@ mod_input_ui <- function(id, choices_inputs){
       ns = ns,
       sszSelectInput(ns("select_sector"), "Sektor:", 
                      choices = choices_inputs[["choices_sector"]], 
-                     selected = "Total")
+                     selected = "Total"
+                     )
     ),
                     
     conditionalPanel(

@@ -7,11 +7,11 @@
 app_ui <- function(request) {
   
   choices_inputs <- list(
-    choices_area = unique(data_vector[["data1"]]$RaumLang),
-    choices_sector = unique(data_vector[["data1"]]$BrancheLang),
-    choices_size = unique(data_vector[["data2"]]$BetriebsgrLang),
-    choices_legal = unique(data_vector[["data2"]]$RechtsformLang),
-    choices_year = unique(data_vector[["data1"]]$Jahr)
+    choices_area = unique(data_vector[["OD2551"]]$RaumLang),
+    choices_sector = unique(data_vector[["OD2551"]]$BrancheLang),
+    choices_size = unique(data_vector[["OD2552"]]$BetriebsgrLang),
+    choices_legal = unique(data_vector[["OD2552"]]$RechtsformLang),
+    choices_year = unique(data_vector[["OD2551"]]$Jahr)
   )
   
   tagList(

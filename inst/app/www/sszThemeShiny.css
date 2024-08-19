@@ -996,7 +996,6 @@ button:active {
   font-size: 14px;
   line-height: 26px;
   padding: 6px 16px 6px 16px;
-  height: 40px;
 }
 
 .selectize-input.full:hover {
@@ -1027,7 +1026,6 @@ button:active {
    line-height: 26px;
    font-size: 14px;
    padding: 6px 16px 6px 16px;
-   height: 40px;
 }
 
 .selectize-dropdown [data-selectable], .selectize-dropdown .optgroup-header {
@@ -1057,7 +1055,6 @@ button:active {
     line-height: 26px;
     font-size: 14px;
     padding: 6px 16px 6px 16px;
-    height: 40px;
 }
 
 .selectize-control.multi .selectize-input.has-items .item {
