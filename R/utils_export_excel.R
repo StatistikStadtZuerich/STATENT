@@ -34,7 +34,7 @@ export_excel <- function(data_table, file, parameters ) {
       title_num,
       inputs_num,
       " ",
-      "Quelle: Statistik Stadt Zürich, GWZ"
+      "Quelle: Statistik Stadt Zürich, Statistik der Unternehmenssturktur (STATENT)"
     )
   ) |> 
     as.data.frame()
