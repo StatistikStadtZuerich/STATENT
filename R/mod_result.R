@@ -39,30 +39,30 @@ mod_result_ui <- function(id){
 #' result Server Functions
 #'
 #' @noRd 
-mod_result_server <- function(id, data_table, input_area, input_sector, input_size, input_legal){
+mod_result_server <- function(id, data_table, parameters){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
 
-    
+
      # Title
     output$title <- renderText({
-      input_sector()
+      parameters$input_sector()
     }) |> 
-      bindEvent(input_sector())
+      bindEvent(parameters$input_sector())
     
     # Subtitle
     output$subtitle <- renderText({
-      paste0(input_size(), ", ", input_legal())
+      paste0(parameters$input_size(), ", ", parameters$input_legal())
     }) |>
-      bindEvent(input_size(), input_legal())
+      bindEvent(parameters$input_size(), parameters$input_legal())
 
     # Sub-Subtitle
     output$subSubtitle <- renderText({
-      paste0(input_area())
+      paste0(parameters$input_area())
     }) |>
-      bindEvent(input_area())
+      bindEvent(parameters$input_area())
 
-    
+
     output$results_table <- renderReactable(
       reactable_table(data_table())
     )

@@ -5,7 +5,7 @@
 #' @return The return value, if any, from executing the utility.
 #'
 #' @noRd
-export_excel <- function(data_table, file, input_area, input_sector, input_size, input_legal ) {
+export_excel <- function(data_table, file, parameters ) {
   
   # Data Paths
   hauptPfad <- "inst/app/www/Titelblatt.xlsx"
@@ -15,7 +15,7 @@ export_excel <- function(data_table, file, input_area, input_sector, input_size,
   # Manipulate Data for the two queries
   title_num <- "blabla: "
   
-  inputs_num <- paste0(input_area(), ", ", input_sector(), ", ", input_size())
+  inputs_num <- paste0(parameters$input_area(), ", ", parameters$input_sector(), ", ", parameters$input_size())
   
   
   data <- read_excel(hauptPfad, sheet = 1) |> 

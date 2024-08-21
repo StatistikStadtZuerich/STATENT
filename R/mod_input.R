@@ -58,36 +58,18 @@ mod_input_server <- function(id, data_table2){
     
     # Filter main data according to input
     filtered_data <- reactive({
-      filter_table_data(data_table2, input
-                          # select_year = reactive(input$select_year)
-                          
-                        )
-                        
+      filter_table_data(data_table2, input)
     })
-    
-    input_area <- reactive({
-        "input_area" = input$select_area
-        })
-    
-    input_sector <- reactive({
-      "input_sector" = input$select_sector
-    })
-    
-    input_size <- reactive({
-      "input_size" = input$select_size
-    })
-    
-    input_legal <- reactive({
-      "input_legal" = input$select_legal
-    })
-    
+
     
     return(list(
       "filtered_data" = filtered_data,
-      "input_area" = input_area,
-      "input_sector" = input_sector,
-      "input_size" = input_size,
-      "input_legal" = input_legal
+      "parameters" = list(
+        input_area = reactive({ input$select_area }),
+        input_sector = reactive({ input$select_sector }),
+        input_size = reactive({ input$select_size }),
+        input_legal = reactive({ input$select_legal })
+      )
       ))
     
   })

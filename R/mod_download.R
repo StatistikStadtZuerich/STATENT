@@ -38,7 +38,7 @@ mod_download_ui <- function(id){
 #' download Server Functions
 #'
 #' @noRd 
-mod_download_server <- function(id, data_table, input_area, input_sector, input_size, input_legal){
+mod_download_server <- function(id, data_table, parameters){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
  
@@ -64,7 +64,7 @@ mod_download_server <- function(id, data_table, input_area, input_sector, input_
       },
       content = function(file) {
         
-        rlang::inject(export_excel(data_table, file, input_area, input_sector, input_size, input_legal ))
+        rlang::inject(export_excel(data_table, file, parameters ))
       }
     )
     
