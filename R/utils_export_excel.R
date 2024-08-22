@@ -13,7 +13,7 @@ export_excel <- function(data_table, file, parameters ) {
   
   
   # Manipulate Data for the two queries
-  title_num <- "blabla: "
+  title_num <- "Arbeitsstätten, Beschäftigte und Vollzeitäquivalente: "
   
   inputs_num <- paste0(parameters$input_area(), ", ", parameters$input_sector(), ", ", parameters$input_size())
   
@@ -39,6 +39,16 @@ export_excel <- function(data_table, file, parameters ) {
   ) |> 
     as.data.frame()
   
+  workers <- list(
+    "Beschäftigte"
+  ) |> 
+    as.data.frame()
+  
+  vza <- list(
+    "Vollzeitäquivalente"
+  ) |> 
+    as.data.frame()
+  
   definitions <- read_excel(hauptPfad, sheet = 2)
   
   # Styling
@@ -56,7 +66,8 @@ export_excel <- function(data_table, file, parameters ) {
     fontName = "Arial Black"
   )
   styNumeric <- createStyle(
-    halign = "right"
+    halign = "right",
+    numFmt = "number"
   )
   
   # Create Workbook
@@ -94,6 +105,20 @@ export_excel <- function(data_table, file, parameters ) {
             withFilter = FALSE
   )
   writeData(wb,
+            sheet = 3, x = workers,
+            colNames = FALSE, rowNames = FALSE,
+            startCol = 3,
+            startRow = 8,
+            withFilter = FALSE
+  )
+  writeData(wb,
+            sheet = 3, x = vza,
+            colNames = FALSE, rowNames = FALSE,
+            startCol = 6,
+            startRow = 8,
+            withFilter = FALSE
+  )
+  writeData(wb,
             sheet = 3, x = data_table(),
             colNames = TRUE, rowNames = FALSE,
             startCol = 1,
@@ -109,7 +134,7 @@ export_excel <- function(data_table, file, parameters ) {
   addStyle(wb, 1, style = styTitle, row = 14, cols = 2, gridExpand = TRUE)
   addStyle(wb, 2, style = styConcept, row = 1:20, cols = 1, gridExpand = TRUE)
   addStyle(wb, 2, style = styDefinition, row = 1:20, cols = 2, gridExpand = TRUE)
-  addStyle(wb, 3, style = styConcept, row = 9, cols = 1:50, gridExpand = TRUE)
+  addStyle(wb, 3, style = styConcept, row = 8:9, cols = 1:50, gridExpand = TRUE)
   
   # Numeric values: different columns in the two queries
   addStyle(wb, 3, style = styNumeric, rows = 10:50, cols = 4:10, gridExpand = TRUE)
@@ -124,6 +149,7 @@ export_excel <- function(data_table, file, parameters ) {
   setColWidths(wb, sheet = 1, cols = "5", widths = 8)
   setColWidths(wb, sheet = 2, cols = "A", widths = 40)
   setColWidths(wb, sheet = 2, cols = "B", widths = 65)
+  setColWidths(wb, sheet = 3, cols = c("B", "C", "F"), widths = 15)
   
   
   # Save Excel
