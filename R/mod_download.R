@@ -1,8 +1,8 @@
 #' download UI Function
 #'
-#' @description A shiny Module.
+#' @param id 
 #'
-#' @param id,input,output,session Internal parameters for {shiny}.
+#' @description A shiny Module.
 #'
 #' @noRd 
 #'
@@ -36,6 +36,10 @@ mod_download_ui <- function(id){
 }
     
 #' download Server Functions
+#'
+#' @param id 
+#' @param data_table 
+#' @param parameters 
 #'
 #' @noRd 
 mod_download_server <- function(id, data_table, parameters){

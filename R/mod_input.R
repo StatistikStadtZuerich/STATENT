@@ -1,8 +1,9 @@
 #' input UI Function
 #'
-#' @description A shiny Module.
+#' @param id 
+#' @param choices_inputs 
 #'
-#' @param id,input,output,session Internal parameters for {shiny}.
+#' @description A shiny Module.
 #'
 #' @noRd 
 #'
@@ -38,7 +39,7 @@ mod_input_ui <- function(id, choices_inputs){
   
     sszSliderInput(inputId = ns("select_year"),
                    label = "Jahr:", 
-                   value = c(2011, 2013), 
+                   value = c(2011, 2021), 
                    step = 1,
                    ticks = TRUE,
                    min = min(choices = choices_inputs[["choices_year"]]), 
@@ -51,14 +52,60 @@ mod_input_ui <- function(id, choices_inputs){
     
 #' input Server Functions
 #'
+#' @param id 
+#' @param data_table 
+#'
 #' @noRd 
-mod_input_server <- function(id, data_table2){
+mod_input_server <- function(id, data_table){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
     
+    # update selection of sectors based on selected area
+    observe( {
+      new_choices <- unique(data_table[data_table$RaumLang == input$select_area, ]$BrancheLang)
+      updateSelectInput(
+        session = session,
+        inputId = "select_sector",
+        choices = new_choices,
+        selected = new_choices[[1]]
+      )
+    }) |> 
+      bindEvent(input$select_area)
+    
+    # update selection of size based on selected area and legal
+    observe({
+      new_choices <- unique(
+        data_table[data_table$RaumLang == input$select_area &
+                     data_table$RechtsformLang == input$select_legal, ]$BetriebsgrLang
+        )
+      updateRadioButtons(
+        session = session,
+        inputId = "select_size",
+        choices = new_choices,
+        selected = new_choices[[1]]
+      )
+    }) |>
+      bindEvent(input$select_area, input$select_legal)
+    
+    # update selection of legal based on selected area and size
+    observe({
+      new_choices <- unique(
+        data_table[data_table$RaumLang == input$select_area &
+                     data_table$BetriebsgrLang == input$select_size, ]$RechtsformLang
+    )
+      updateSelectInput(
+        session = session,
+        inputId = "select_legal",
+        choices = new_choices,
+        selected = new_choices[[1]]
+      )
+    }) |>
+      bindEvent(input$select_area, input$select_size)
+    # 
+    
     # Filter main data according to input
     filtered_data <- reactive({
-      filter_table_data(data_table2, input)
+      filter_table_data(data_table, input)
     })
 
     
