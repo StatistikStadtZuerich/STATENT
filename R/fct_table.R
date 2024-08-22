@@ -12,7 +12,7 @@ reactable_table <- function(target_data) {
               borderColor = "#DEDEDE"
             ),
             columns = list(
-              Jahr = colDef(name = "Jahr", align = "left", width = 40),
+              Jahr = colDef(name = "Jahr", align = "left", width = 45),
               Arbeitsstaetten = colDef(name = "Arbeits-\nstätten"),
               AnzBesch = colDef(name = "Total"),
               AnzBeschW = colDef(name = "Frauen"),

@@ -52,6 +52,10 @@ prepare_data <- function(data_sector, data_size_legal) {
                     "BetriebsgrLang")),
            everything())
   
-  data_merge <- bind_rows(data_sector_mutate, data_size_legal_mutate)
+  data_merge <- bind_rows(data_sector_mutate, data_size_legal_mutate) |> 
+    mutate(across(
+      all_of(c("AnzVZA", "AnzVZAW", "AnzVZAM")),
+      as.numeric
+    ))
 }
  # x <- prepare_data(data_vector[["OD2551"]], data_vector[["OD2552"]])

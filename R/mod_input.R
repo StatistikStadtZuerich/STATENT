@@ -66,42 +66,40 @@ mod_input_server <- function(id, data_table){
       updateSelectInput(
         session = session,
         inputId = "select_sector",
-        choices = new_choices,
-        selected = new_choices[[1]]
+        choices = new_choices
+        # selected = new_choices[[1]]
       )
     }) |> 
       bindEvent(input$select_area)
     
     # update selection of size based on selected area and legal
-    observe({
-      new_choices <- unique(
-        data_table[data_table$RaumLang == input$select_area &
-                     data_table$RechtsformLang == input$select_legal, ]$BetriebsgrLang
-        )
-      updateRadioButtons(
-        session = session,
-        inputId = "select_size",
-        choices = new_choices,
-        selected = new_choices[[1]]
-      )
-    }) |>
-      bindEvent(input$select_area, input$select_legal)
+    # observeEvent(list(input$select_area, input$select_legal), {
+    #   new_choices <- unique(
+    #     data_table[data_table$RaumLang == input$select_area &
+    #                  data_table$RechtsformLang == input$select_legal, ]$BetriebsgrLang
+    #     )
+    #   updateRadioButtons(
+    #     session = session,
+    #     inputId = "select_size",
+    #     choices = new_choices,
+    #     selected = new_choices[[1]]
+    #   )
+    # }) 
     
     # update selection of legal based on selected area and size
-    observe({
-      new_choices <- unique(
-        data_table[data_table$RaumLang == input$select_area &
-                     data_table$BetriebsgrLang == input$select_size, ]$RechtsformLang
-    )
-      updateSelectInput(
-        session = session,
-        inputId = "select_legal",
-        choices = new_choices,
-        selected = new_choices[[1]]
-      )
-    }) |>
-      bindEvent(input$select_area, input$select_size)
-    # 
+    # observeEvent(list(input$select_area, input$select_size), {
+    #   new_choices <- unique(
+    #     data_table[data_table$RaumLang == input$select_area &
+    #                  data_table$BetriebsgrLang == input$select_size, ]$RechtsformLang
+    # )
+    #   updateSelectInput(
+    #     session = session,
+    #     inputId = "select_legal",
+    #     choices = new_choices,
+    #     selected = new_choices[[1]]
+    #   )
+    # }) 
+    
     
     # Filter main data according to input
     filtered_data <- reactive({
