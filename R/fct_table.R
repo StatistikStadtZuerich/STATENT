@@ -8,6 +8,16 @@
 reactable_table <- function(target_data) {
   reactable(target_data |> 
               mutate(Jahr = as.character(Jahr)),
+            paginationType = "simple",
+            language = reactableLang(
+              noData = "Keine Einträge gefunden",
+              pageNumbers = "{page} von {pages}",
+              pageInfo = "{rowStart} bis {rowEnd} von {rows} Einträgen",
+              pagePrevious = "\u276e",
+              pageNext = "\u276f",
+              pagePreviousLabel = "Vorherige Seite",
+              pageNextLabel = "Nächste Seite"
+            ),
             theme = reactableTheme(
               borderColor = "#DEDEDE"
             ),
