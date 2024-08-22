@@ -32,6 +32,12 @@ mod_result_ui <- function(id){
       textOutput(ns("subSubtitle"))
     ),
     
+    tags$div(
+      id = ns("tableTitle_id"),
+      class = "tableTitle_div",
+      textOutput(ns("tableTitle"))
+    ),
+    
     reactableOutput(ns("results_table"))
   )
 }
@@ -46,22 +52,26 @@ mod_result_server <- function(id, data_table, parameters){
 
      # Title
     output$title <- renderText({
-      parameters$input_sector()
+      parameters$input_area()
     }) |> 
-      bindEvent(parameters$input_sector())
+      bindEvent(parameters$input_area())
     
     # Subtitle
     output$subtitle <- renderText({
+      paste0(parameters$input_sector())
+    }) |>
+      bindEvent(parameters$input_sector())
+
+    # Sub-Subtitle
+    output$subSubtitle <- renderText({
       paste0(parameters$input_size(), ", ", parameters$input_legal())
     }) |>
       bindEvent(parameters$input_size(), parameters$input_legal())
 
-    # Sub-Subtitle
-    output$subSubtitle <- renderText({
-      paste0(parameters$input_area())
-    }) |>
-      bindEvent(parameters$input_area())
-
+    # title for table
+    output$tableTitle <- renderText({
+      paste0("Die folgende Tabelle entspricht Ihren Suchkriterien")
+    })
 
     output$results_table <- renderReactable(
       reactable_table(data_table())

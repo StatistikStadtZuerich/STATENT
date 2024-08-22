@@ -22,7 +22,7 @@ reactable_table <- function(target_data) {
               borderColor = "#DEDEDE"
             ),
             columns = list(
-              Jahr = colDef(name = "Jahr", align = "left", width = 45),
+              Jahr = colDef(name = "Jahr", align = "left"),
               Arbeitsstaetten = colDef(name = "Arbeits-\nstätten"),
               AnzBesch = colDef(name = "Total"),
               AnzBeschW = colDef(name = "Frauen"),
@@ -35,18 +35,18 @@ reactable_table <- function(target_data) {
               colGroup(
                 name = "Beschäftigte",
                 columns = c("AnzBesch", "AnzBeschW", "AnzBeschM"),
-                align = "right",
+                align = "left",
                 headerVAlign = "bottom"
               ),
               colGroup(
                 name = "Vollzeitäquivalente",
                 columns = c("AnzVZA", "AnzVZAW", "AnzVZAM"),
-                align = "right",
+                align = "left",
                 headerVAlign = "bottom"
               )
             ),
             defaultColDef = colDef(
-              align = "right",
+              align = "left",
               headerVAlign = "bottom",
               minWidth = 50,
               cell = function(value) {
