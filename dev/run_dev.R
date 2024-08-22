@@ -1,3 +1,6 @@
+# Sass code compilation
+sass::sass(input = sass::sass_file("inst/app/www/statent_list.sass"), output = "inst/app/www/statent_list.css", cache = NULL)
+
 # Set options here
 options(golem.app.prod = FALSE) # TRUE = production mode, FALSE = development mode
 
