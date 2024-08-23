@@ -16,6 +16,7 @@ app_server <- function(input, output, session) {
   
   mod_download_server("download",
                       reactive_data[["filtered_data"]],
+                      reactive_data[["filtered_data_download"]],
                       reactive_data[["parameters"]]
                       )
 }

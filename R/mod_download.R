@@ -42,16 +42,28 @@ mod_download_ui <- function(id){
 #' @param parameters 
 #'
 #' @noRd 
-mod_download_server <- function(id, data_table, parameters){
+mod_download_server <- function(id, data_table, data_table_excel, parameters){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
  
+    filename <- reactive({
+      area <- parameters$input_area()
+      sector <- substr(parameters$input_sector(), 1, 20)
+      size <- parameters$input_size()
+      legal <- parameters$input_legal()
+      paste0("Arbeitsstätten_Beschäftigte_Vollzeitäquivalente_", area, "_", 
+             sector, "_", size, "_", legal)
+    }) |>
+      bindEvent(parameters$input_area(), parameters$input_sector(), 
+                parameters$input_size(), parameters$input_legal())
+    
+    
     ### Write Download Table
     ## App 1
     # CSV
     output$csvDownload <- downloadHandler(
       filename = function() {
-        name <- "testetst"
+        name <- filename()
         paste0(name, ".csv")
       },
       content = function(file) {
@@ -63,12 +75,12 @@ mod_download_server <- function(id, data_table, parameters){
     # Excel
     output$excelDownload <- downloadHandler(
       filename = function() {
-        name <- "blabla"
+        name <- filename()
         paste0(name, ".xlsx")
       },
       content = function(file) {
         
-        rlang::inject(export_excel(data_table, file, parameters ))
+        rlang::inject(export_excel(data_table_excel, file, parameters ))
       }
     )
     

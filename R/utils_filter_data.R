@@ -5,7 +5,6 @@
 #' @return The return value, if any, from executing the utility.
 #'
 #' @noRd
-
 filter_table_data <- function(data_table, input_values) {
   
   data_table |> 
@@ -16,7 +15,8 @@ filter_table_data <- function(data_table, input_values) {
            .data[["Jahr"]] >= input_values$select_year[1],
            .data[["Jahr"]] <= input_values$select_year[2]
            ) |> 
-    select(-contains(c("Cd", "Sort", "Lang")))
+    select(-contains(c("Cd", "Sort", "Lang"))) |> 
+    distinct()
 }
 # filter_table_data(x, 
 #                   input_values = list(
@@ -26,3 +26,25 @@ filter_table_data <- function(data_table, input_values) {
 #                     select_legal = reactive("Alle Rechtsformen")
 #                     # select_year = reactive(input$select_year)
 #                   ))
+
+
+#' filter_download_data 
+#'
+#' @description A utils function
+#'
+#' @return The return value, if any, from executing the utility.
+#'
+#' @noRd
+filter_download_data <- function(data_table, input_values) {
+  
+  # teste <- filter_table_data(data_table, input_values) 
+  filter_table_data(data_table, input_values) |>
+    rename("Arbeitsstätten" = "Arbeitsstaetten",
+           "Anzahl Beschäftigte" = "AnzBesch",
+           "Anzahl Beschäftigte (weiblich)" = "AnzBeschW",
+           "Anzahl Beschäftigte (männlich)" = "AnzBeschM",
+           "Anzahl Vollzeitäqui- valente" = "AnzVZA",
+           "Anzahl Vollzeitäqui- valente (weiblich)" = "AnzVZAW",
+           "Anzahl Vollzeitäqui- valente (männlich)" = "AnzVZAM"
+             )
+}

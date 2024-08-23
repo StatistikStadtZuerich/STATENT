@@ -35,7 +35,8 @@ prepare_data <- function(data_sector, data_size_legal) {
                     "RechtsformLang",
                     "BetriebsgrSort",
                     "BetriebsgrLang")),
-                  everything())
+                  everything()) 
+  
   data_size_legal_mutate <- data_size_legal |> 
     mutate(BrancheSort = 0,
            BrancheCd = "0",
@@ -50,7 +51,10 @@ prepare_data <- function(data_sector, data_size_legal) {
                     "RechtsformLang",
                     "BetriebsgrSort",
                     "BetriebsgrLang")),
-           everything())
+           everything()) |> 
+    filter(.data[["BrancheLang"]] != "Alle Sektoren" &
+             .data[["RechtsformSort"]] != 0 &
+             .data[["BetriebsgrSort"]] != 0)
   
   data_merge <- bind_rows(data_sector_mutate, data_size_legal_mutate) |> 
     mutate(across(
@@ -58,4 +62,5 @@ prepare_data <- function(data_sector, data_size_legal) {
       as.numeric
     ))
 }
- # x <- prepare_data(data_vector[["OD2551"]], data_vector[["OD2552"]])
+# test <- prepare_data(data_vector[[1]], data_vector[[2]])
+
