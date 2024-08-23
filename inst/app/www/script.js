@@ -19,7 +19,8 @@ Global variables exposed by Shiny (dependencies): d3, sszvis
   var MAX_WIDTH = 800;
   var MAX_CONTROL_WIDTH = 350;
 
-    var queryProps = sszvis.responsiveProps()
+    var queryProps = sszvis
+    .responsiveProps()
     .breakpoints([
           { name: 'small', width: 280 },
           { name: 'narrow', width: 516 },
@@ -59,9 +60,9 @@ Global variables exposed by Shiny (dependencies): d3, sszvis
       // e.g. 02.03.2004. As the dates come in the form or a numeric value (year), we need to
       // add "01.01." to them, so they'll be parsed correctly. Could also be done on Shiny side.
       xValue: sszvis.parseDate("01.01." + d["Jahr"]),
-      yValue: d["AnzBesch"],
-      category: d["SexLang"],
-      filterCat: d["HerkunftLang"],
+      yValue: d["Anzahl"],
+      category: d["Kategorie"],
+      filterCat: d["Button"],
     };
   }
 
@@ -79,7 +80,7 @@ Global variables exposed by Shiny (dependencies): d3, sszvis
   var actions = {
     prepareState: function(data) {
       state.rawData = data;
-      state.selectedCategory = 'Schweizer*in';
+      state.selectedCategory = 'Anzahl Beschäftigte';
       state.filters = sszvis.set(state.rawData,fAcc);
       actions.selectFilter(state.filters[0]);
       actions.resetDate();
@@ -149,7 +150,7 @@ Global variables exposed by Shiny (dependencies): d3, sszvis
 
     // CONFIG
     //choose color scale depending on number of categories
-    var colorScale = ['#3431DE','#DB247D'];
+    var colorScale = ['#3431DE','#DB247D', '#7d4438'];
   
     var cScale = d3.scaleOrdinal()
           .domain(state.categories)
@@ -367,12 +368,13 @@ Global variables exposed by Shiny (dependencies): d3, sszvis
   }
 
   function yAxisExtent(yAxEx) {
-    if (yAxEx === 'Schweizer*in') return [0,50000];
-    if (yAxEx === 'Ausländer*in') return [0,40000];
+    if (yAxEx === 'Arbeitsstätten') return [0,50000];
+    if (yAxEx === 'Anzahl Beschäftigte') return [0,40000];
+    if (yAxEx === 'Anzahl Vollzeitäquivalente') return [0,40000];
   }
 
   function formatYAxis(category) {
-  return (category === 'Schweizer*in') ? 'Anzahl Personen' : 'Anzahl Personen';
+  return (category === 'Arbeitsstätten') ? 'Anzahl Personen' : 'Anzahl Personen';
 }
 
   /** Shiny -> JS
@@ -383,7 +385,7 @@ It already comes in a form of parsed JSON object (array of observations), so the
 is no need to parse the CSV / JSON anymore, as was the case in original example -
 just a logic to extract needed properties is present (parseRow).
 */
-  Shiny.addCustomMessageHandler("update_multLinedataButton", function (data) {
+  Shiny.addCustomMessageHandler("update_data", function (message) {
     try {
       var container_id = message.container_id[0];
       config.targetElement = container_id;
@@ -394,5 +396,5 @@ just a logic to extract needed properties is present (parseRow).
       throw e;
     }
   });
-}
+});
 

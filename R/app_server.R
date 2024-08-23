@@ -11,6 +11,7 @@ app_server <- function(input, output, session) {
   
   mod_result_server("results", 
                     reactive_data[["filtered_data"]],
+                    reactive_data[["filtered_chart_data"]],
                     reactive_data[["parameters"]]
                     )
   

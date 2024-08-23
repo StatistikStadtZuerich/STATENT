@@ -18,7 +18,7 @@ app_ui <- function(request) {
     # Leave this function for adding external resources
     golem_add_external_resources(),
     # Your application UI logic
-    fluidPage(
+    add_dependencies(fluidPage(
       sidebarPanel(
         mod_input_ui(id = "input_widgets",
                    choices_inputs = choices_inputs),
@@ -38,7 +38,7 @@ app_ui <- function(request) {
         )
       )
       
-    )
+    ))
   )
 }
 

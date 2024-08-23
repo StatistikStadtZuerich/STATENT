@@ -38,14 +38,17 @@ mod_result_ui <- function(id){
       textOutput(ns("tableTitle"))
     ),
     
-    reactableOutput(ns("results_table"))
+    reactableOutput(ns("results_table")),
+    
+    # div for d3 chart; namespace is dealt with in server/JS message handler
+    div(id = ns("sszvis-chart"))
   )
 }
     
 #' result Server Functions
 #'
 #' @noRd 
-mod_result_server <- function(id, data_table, parameters){
+mod_result_server <- function(id, data_table, chart_data, parameters){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
 
@@ -76,6 +79,16 @@ mod_result_server <- function(id, data_table, parameters){
     output$results_table <- renderReactable(
       reactable_table(data_table())
     )
+    
+    
+    # create and send data for bar chart
+    observe({
+      chart_data <- chart_data()
+      id <- paste0("#", ns("sszvis-chart"))
+      update_chart(list("data" = chart_data, "container_id" = id), "update_data", session)
+    }) |>
+      bindEvent(chart_data())
+    
   })
 }
     

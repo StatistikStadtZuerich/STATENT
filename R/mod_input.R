@@ -106,6 +106,11 @@ mod_input_server <- function(id, data_table){
       filter_table_data(data_table, input)
     })
     
+    # Prepare data for chart
+    filtered_chart_data <- reactive({
+      filter_chart_data(data_table, input)
+    })
+    
     # Prepare data for downloads
     filtered_data_download <- reactive({
       filter_download_data(data_table, input)
@@ -115,6 +120,7 @@ mod_input_server <- function(id, data_table){
     return(list(
       "filtered_data" = filtered_data,
       "filtered_data_download" = filtered_data_download,
+      "filtered_chart_data" = filtered_chart_data,
       "parameters" = list(
         input_area = reactive({ input$select_area }),
         input_sector = reactive({ input$select_sector }),
