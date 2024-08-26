@@ -51,16 +51,27 @@ prepare_data <- function(data_sector, data_size_legal) {
                     "RechtsformLang",
                     "BetriebsgrSort",
                     "BetriebsgrLang")),
-           everything()) |> 
-    filter(.data[["BrancheLang"]] != "Alle Sektoren" &
-             .data[["RechtsformSort"]] != 0 &
-             .data[["BetriebsgrSort"]] != 0)
+           everything()) 
   
   data_merge <- bind_rows(data_sector_mutate, data_size_legal_mutate) |> 
     mutate(across(
       all_of(c("AnzVZA", "AnzVZAW", "AnzVZAM")),
       as.numeric
-    ))
+    )) |> 
+    # certain values appear double since they are in both OGD datasets
+    # cannot use distinct since value may differ slightly due to rounding
+    group_by(across(c("Jahr",
+                      "RaumSort",
+                      "RaumLang",
+                      "BrancheSort",
+                      "BrancheCd",
+                      "BrancheLang",
+                      "RechtsformSort",
+                      "RechtsformLang",
+                      "BetriebsgrSort",
+                      "BetriebsgrLang"))) |> 
+    slice_head(n = 1) |> 
+    ungroup()
 }
 # test <- prepare_data(data_vector[[1]], data_vector[[2]])
 

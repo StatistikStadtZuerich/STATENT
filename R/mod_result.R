@@ -41,7 +41,7 @@ mod_result_ui <- function(id){
     reactableOutput(ns("results_table")),
     
     # div for d3 chart; namespace is dealt with in server/JS message handler
-    div(id = ns("sszvis-chart"))
+    # div(id = ns("sszvis-chart"))
   )
 }
     
