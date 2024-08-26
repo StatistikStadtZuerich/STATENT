@@ -1,15 +1,32 @@
-#' data_load 
+#' get_params_data_load
 #'
-#' @description A utils function
+#' @description A utils function: the place where hardcoded things like links are set.
+#' No other function should need modification with the addition of another year if the structure remains the same.
 #'
-#' @return The return value, if any, from executing the utility.
+#' @return a list with a vector of years, a vector of links to the candidate datasets, and a vector of links to the result datasets
 #'
 #' @noRd
-read_data <- function() {
-  OD2551 <- read_csv("./temp_data/WIR255OD2551.csv")
-  OD2552 <- read_csv("./temp_data/WIR255OD2552.csv")
+get_params_data_load <- function() {
   
-  list(OD2551 = OD2551, OD2552 = OD2552)
+  # URLs for all the candidates
+  urls_data <- c(
+    "https://data.integ.stadt-zuerich.ch/dataset/int_dwh_bfs_wir_statent_ast_beschaeftigte_vza_sektor_jahr_od2551/download/WIR255OD2551.csv",
+    "https://data.integ.stadt-zuerich.ch/dataset/int_dwh_bfs_wir_statent_ast_beschaeftigte_vza_rechtsform_betrgr_jahr_od2552/download/WIR255OD2552.csv"
+  )
+
+  
+  return(urls_data)
+}
+
+#' data_download
+#' @description Function to download the data from Open Data Zürich
+#'
+#' @param link URL to the csv
+#'
+#' @return tibble, downloaded from link
+#' @noRd
+data_download <- function(link) {
+  data.table::fread(link, encoding = "UTF-8") 
 }
 
 #' prepare_data 
