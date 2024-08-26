@@ -126,33 +126,44 @@ mod_input_server <- function(id, data_table) {
     }) |>
       bindEvent(input$select_area)
 
-    # update selection of size based on selected area and legal
-    # observeEvent(list(input$select_area, input$select_legal), {
-    #   new_choices <- unique(
-    #     data_table[data_table$RaumLang == input$select_area &
-    #                  data_table$RechtsformLang == input$select_legal, ]$BetriebsgrLang
-    #     )
-    #   updateRadioButtons(
-    #     session = session,
-    #     inputId = "select_size",
-    #     choices = new_choices,
-    #     selected = new_choices[[1]]
-    #   )
-    # })
+    # update selection of size based on selected legal
+    observe({
+      new_choices_size <- unique(
+        data_table[data_table$RechtsformLang == input$select_legal, ]$BetriebsgrLang
+        )
+      old_selected_size <- input$select_size
+      if (old_selected_size %in% new_choices_size) {
+        new_selected_size <- old_selected_size
+      } else {
+        new_selected_size <- new_choices_size[[1]]
+      }
+      updateRadioButtons(
+        session = session,
+        inputId = "select_size",
+        choices = new_choices_size,
+        selected = new_selected_size
+      )
+    }) |> 
+      bindEvent(input$select_legal)
 
-    # update selection of legal based on selected area and size
-    # observeEvent(list(input$select_area, input$select_size), {
-    #   new_choices <- unique(
-    #     data_table[data_table$RaumLang == input$select_area &
-    #                  data_table$BetriebsgrLang == input$select_size, ]$RechtsformLang
-    # )
-    #   updateSelectInput(
-    #     session = session,
-    #     inputId = "select_legal",
-    #     choices = new_choices,
-    #     selected = new_choices[[1]]
-    #   )
-    # })
+    # update selection of legal based on size
+    observe({
+      new_choices_legal <- unique(
+        data_table[data_table$BetriebsgrLang == input$select_size, ]$RechtsformLang
+    )
+      old_selected_legal <- input$select_legal
+      if (old_selected_legal %in% new_choices_legal) {
+        new_selected_legal <- old_selected_legal
+      } else {
+        new_selected_legal <- new_choices_legal[[1]]
+      }
+      updateSelectInput(
+        session = session,
+        inputId = "select_legal",
+        choices = new_choices_legal,
+        selected = new_selected_legal
+      )
+    })
 
 
     # Filter main data according to input
