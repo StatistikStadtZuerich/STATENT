@@ -1,5 +1,8 @@
 #' filter_data 
 #'
+#' @param data_table 
+#' @param input_values 
+#'
 #' @description A utils function
 #'
 #' @return The return value, if any, from executing the utility.
@@ -18,17 +21,11 @@ filter_table_data <- function(data_table, input_values) {
     select(-contains(c("Cd", "Sort", "Lang"))) |> 
     distinct()
 }
-# filter_table_data(x,
-#                   input_values = list(
-#                     select_area = reactive("Ganze Stadt"),
-#                     select_sector = reactive("Alle Sektoren"),
-#                     select_size = reactive("Alle Betriebsgrössen"),
-#                     select_legal = reactive("Alle Rechtsformen")
-#                     # select_year = reactive(input$select_year)
-#                   ))
-
 
 #' filter_download_data 
+#'
+#' @param data_table 
+#' @param input_values 
 #'
 #' @description A utils function
 #'
@@ -61,6 +58,9 @@ filter_download_data <- function(data_table, input_values) {
 }
 
 #' filter_chart_data 
+#'
+#' @param data_table 
+#' @param input_values 
 #'
 #' @description A utils function
 #'
