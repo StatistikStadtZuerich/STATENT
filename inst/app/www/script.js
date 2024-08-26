@@ -150,7 +150,7 @@ Global variables exposed by Shiny (dependencies): d3, sszvis
 
     // CONFIG
     //choose color scale depending on number of categories
-    var colorScale = ['#3431DE','#DB247D', '#7d4438'];
+    var colorScale = ['#000000','#DB247D', '#3431DE'];
   
     var cScale = d3.scaleOrdinal()
           .domain(state.categories)
@@ -186,7 +186,7 @@ Global variables exposed by Shiny (dependencies): d3, sszvis
       .alignOuterLabels(true)
       .highlightTick(isSelected)
       // CONFIG
-      .title(('Title'));
+      .title('Jahr');
 
     var yAxis = sszvis.axisY()
       .scale(yScale)
@@ -212,7 +212,7 @@ Global variables exposed by Shiny (dependencies): d3, sszvis
     var rulerLabel = sszvis.modularTextSVG()
       .bold(sszvis.compose(sszvis.formatNumber, yAcc))
       // CONFIG use category name as ruler label
-      .plain(' Personen' , cAcc);
+      .plain(formatTooltip(state.selectedFilter) , cAcc);
 
     var highlightLayer = sszvis.annotationRuler()
       .top(0)
@@ -369,13 +369,22 @@ Global variables exposed by Shiny (dependencies): d3, sszvis
 
   function yAxisExtent(yAxEx) {
     if (yAxEx === 'Arbeitsstätten') return [0,50000];
-    if (yAxEx === 'Anzahl Beschäftigte') return [0,40000];
-    if (yAxEx === 'Anzahl Vollzeitäquivalente') return [0,40000];
+    if (yAxEx === 'Anzahl Beschäftigte') return [0,500000];
+    if (yAxEx === 'Anzahl Vollzeitäquivalente') return [0,400000];
   }
 
-  function formatYAxis(category) {
-  return (category === 'Arbeitsstätten') ? 'Anzahl Personen' : 'Anzahl Personen';
-}
+  function formatYAxis(yAxEx) {
+    if (yAxEx === 'Arbeitsstätten') return 'Anzahl Arbeitsstätten';
+    if (yAxEx === 'Anzahl Beschäftigte') return 'Anzahl Beschäftigte';
+    if (yAxEx === 'Anzahl Vollzeitäquivalente') return 'Anzahl Vollzeitäquivalente';
+  }
+
+  function formatTooltip(yAxEx) {
+      if (yAxEx === 'Arbeitsstätten') return ' Arbeitsstätten';
+      if (yAxEx === 'Anzahl Beschäftigte') return ' Beschäftigte';
+      if (yAxEx === 'Anzahl Vollzeitäquivalente') return ' Vollzeitäquivalente';
+  }
+
 
   /** Shiny -> JS
 
