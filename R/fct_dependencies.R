@@ -1,8 +1,12 @@
-#' add_dependencies 
+#' Add Dependencies
 #'
-#' @description A utils function
+#' This utility function attaches the necessary JavaScript and CSS dependencies for D3 and sszvis to a Shiny tag object. This is useful for ensuring that the required libraries are available for custom visualizations in a Shiny application.
 #'
-#' @return The return value, if any, from executing the utility.
+#' @param tag A Shiny tag object (e.g., a UI element) to which the dependencies should be added.
+#'
+#' @return The Shiny tag object with the D3 and sszvis dependencies attached.
+#'
+#' @description A utility function that adds D3 and sszvis dependencies to a Shiny tag object.
 #'
 #' @noRd
 add_dependencies <- function(tag) {

@@ -1,8 +1,14 @@
-#' export_excel 
+#' Export Data to Excel
 #'
-#' @description A utils function
+#' This utility function exports a data table to an Excel file with custom formatting and additional sheets. It creates a title sheet, inserts images, applies styles, and adjusts column widths, providing a well-formatted Excel document ready for distribution.
 #'
-#' @return The return value, if any, from executing the utility.
+#' @param data_table A reactive expression or data frame containing the data to be exported to Excel.
+#' @param file A string specifying the file path where the Excel file will be saved.
+#' @param parameters A list of user-selected parameters from the Shiny application, used to customize titles and other content in the Excel file.
+#'
+#' @return The function does not return a value but writes an Excel file to the specified path.
+#'
+#' @description A utility function that exports data to an Excel file with multiple sheets, custom formatting, and additional content such as images and titles.
 #'
 #' @noRd
 export_excel <- function(data_table, file, parameters ) {
@@ -141,9 +147,7 @@ export_excel <- function(data_table, file, parameters ) {
   setColWidths(wb, sheet = 3, cols = "F", widths = 15)
   setColWidths(wb, sheet = 3, cols = "G", widths = 15)
   setColWidths(wb, sheet = 3, cols = "H", widths = 15)
-  
-  
-  
+
   
   # Save Excel
   saveWorkbook(wb, file, overwrite = TRUE) ## save to working directory

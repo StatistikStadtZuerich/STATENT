@@ -1,8 +1,12 @@
-#' reactable_table 
+#' Create a Reactable Table
 #'
-#' @description A fct function
+#' This function creates a styled reactable table for displaying tabular data in a Shiny application. The table includes custom column names, grouped columns, pagination, and language settings tailored for a German-speaking audience.
 #'
-#' @return The return value, if any, from executing the function.
+#' @param target_data A data frame or tibble that contains the data to be displayed in the table.
+#'
+#' @return A reactable table object that can be rendered in a Shiny UI.
+#'
+#' @description A helper function to generate a reactable table with specific formatting and customization, such as grouped columns and language settings.
 #'
 #' @noRd
 reactable_table <- function(target_data) {

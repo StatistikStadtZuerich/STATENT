@@ -1,12 +1,10 @@
-#' update_chart
+#' Update Chart
 #'
-#' @description sends data as json as a custom message, which can then be
-#' received by JS/the sszvis chart; needs an appropriate message handler
-#' function specific to each chart
+#' Sends data as JSON in a custom message, which can be received by JavaScript and used to update an sszvis chart. This function requires an appropriate message handler in the JavaScript code specific to each chart type.
 #'
-#' @param data data as tibble to be sent
-#' @param type string, specifies which message handler/chart receives the data
-#' @param session
+#' @param data A tibble containing the data to be sent to the chart.
+#' @param type A string specifying which message handler or chart will receive the data.
+#' @param session The Shiny session object used to send the custom message.
 #'
 #' @return na
 update_chart <- function(data, type, session) {

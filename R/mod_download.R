@@ -1,8 +1,10 @@
-#' download UI Function
+#' Download UI Function
 #'
-#' @param id 
+#' This function creates the user interface for downloading data in a Shiny application. It provides buttons for downloading data in CSV and Excel formats, as well as a link to an Open Government Data (OGD) portal.
 #'
-#' @description A shiny Module.
+#' @param id A character string used to specify a namespace for the module.
+#'
+#' @description A Shiny Module that generates the UI for downloading data, including CSV, Excel, and a link to OGD.
 #'
 #' @noRd 
 #'
@@ -35,11 +37,14 @@ mod_download_ui <- function(id){
 )
 }
     
-#' download Server Functions
+#' Download Server Function
 #'
-#' @param id 
-#' @param data_table 
-#' @param parameters 
+#' This function contains the server-side logic for handling data downloads in a Shiny module. It provides reactive download handlers for exporting data in CSV and Excel formats based on user-selected parameters.
+#'
+#' @param id A character string used to specify a namespace for the module.
+#' @param data_table A reactive expression that returns the data table to be downloaded as a CSV file.
+#' @param data_table_excel A reactive expression or data frame that returns the data to be downloaded as an Excel file.
+#' @param parameters A list of reactive expressions representing user input selections (e.g., area, sector, size, legal form) used to generate the filenames.
 #'
 #' @noRd 
 mod_download_server <- function(id, data_table, data_table_excel, parameters){

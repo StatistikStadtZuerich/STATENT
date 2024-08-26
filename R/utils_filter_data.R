@@ -1,11 +1,13 @@
-#' filter_data 
+#' Filter Data Table
 #'
-#' @param data_table 
-#' @param input_values 
+#' This utility function filters a data table based on user input values. The function applies a series of filtering conditions to the data, including geographic area, sector, company size, legal form, and a range of years.
 #'
-#' @description A utils function
+#' @param data_table A data frame or tibble containing the data to be filtered.
+#' @param input_values A list of input values typically from a Shiny application. This list should include elements such as `select_area`, `select_sector`, `select_size`, `select_legal`, and `select_year`.
 #'
-#' @return The return value, if any, from executing the utility.
+#' @return A filtered data table (tibble) with unnecessary columns removed and duplicate rows eliminated.
+#'
+#' @description A utility function that filters a data table based on specified criteria, such as area, sector, size, legal form, and year range.
 #'
 #' @noRd
 filter_table_data <- function(data_table, input_values) {
@@ -22,14 +24,16 @@ filter_table_data <- function(data_table, input_values) {
     distinct()
 }
 
-#' filter_download_data 
+#' Filter Data for Download
 #'
-#' @param data_table 
-#' @param input_values 
+#' This utility function filters and formats a data table for downloading. It applies the same filtering criteria as `filter_table_data` and then formats specific columns, handling missing values and renaming columns for clarity in the downloaded file.
 #'
-#' @description A utils function
+#' @param data_table A data frame or tibble containing the data to be filtered and formatted for download.
+#' @param input_values A list of input values typically from a Shiny application. This list should include elements such as `select_area`, `select_sector`, `select_size`, `select_legal`, and `select_year`.
 #'
-#' @return The return value, if any, from executing the utility.
+#' @return A filtered and formatted data table (tibble) ready for download.
+#'
+#' @description A utility function that filters and prepares data for download, including formatting numeric columns with missing values and renaming columns for better readability.
 #'
 #' @noRd
 filter_download_data <- function(data_table, input_values) {
@@ -57,25 +61,22 @@ filter_download_data <- function(data_table, input_values) {
              ) 
 }
 
-#' filter_chart_data 
+#' Filter Data for Charting
 #'
-#' @param data_table 
-#' @param input_values 
+#' This utility function filters and formats a data table for use in charting. It prepares the data by gathering relevant columns and categorizing them, making it suitable for visualizations such as bar charts or line charts.
 #'
-#' @description A utils function
+#' @param data_table A data frame or tibble containing the data to be filtered and formatted for charting.
+#' @param input_values A list of input values typically from a Shiny application. This list should include elements such as `select_area`, `select_sector`, `select_size`, `select_legal`, and `select_year`.
 #'
-#' @return The return value, if any, from executing the utility.
+#' @return A formatted data table (tibble) ready to be used for creating charts, with columns gathered and categorized appropriately.
+#'
+#' @description A utility function that filters and processes data for charting purposes. It gathers data columns and categorizes them to prepare for visualization.
 #'
 #' @noRd
 filter_chart_data <- function(data_table, input_values) {
   
   data <- filter_table_data(data_table, input_values)
-  
-  # data <- test |> 
-  #   filter(RaumSort == 1) |> 
-  #   filter(BrancheLang == "Herstellung von Möbeln" & BrancheCd == "31") |> 
-  #   select(Jahr, starts_with("A"))
-  
+
   data |>
     tidyr::gather(Button, Anzahl, -Jahr) |> 
     mutate(Kategorie = case_when(
@@ -96,7 +97,4 @@ filter_chart_data <- function(data_table, input_values) {
       .data[["Button"]] == "AnzBeschM" ~ "Anzahl Beschäftigte",
       .data[["Button"]] == "AnzVZAM" ~ "Anzahl Vollzeitäquivalente"
     ))
-    
-  
-  
 }

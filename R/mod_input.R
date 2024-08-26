@@ -1,9 +1,16 @@
-#' input UI Function
+#' Input UI Function
 #'
-#' @param id 
-#' @param choices_inputs 
+#' This function creates a UI module for a Shiny application. The UI includes several inputs such as select inputs, radio buttons, and a slider. The inputs allow the user to filter and select different criteria like geographic area, sector, company size, legal form, and year.
 #'
-#' @description A shiny Module.
+#' @param id A character string used to specify a namespace for the module.
+#' @param choices_inputs A list containing the choices for the select inputs and slider. The list should include the following named elements:
+#'   - `choices_area`: A vector of choices for the geographic area.
+#'   - `choices_sector`: A vector of choices for the sector.
+#'   - `choices_size`: A vector of choices for the company size.
+#'   - `choices_legal`: A vector of choices for the legal form.
+#'   - `choices_year`: A vector of numeric values representing the years available for selection.
+#'
+#' @description A Shiny Module that generates a user interface with various input elements for filtering data based on area, sector, company size, legal form, and year.
 #'
 #' @noRd 
 #'
@@ -50,10 +57,18 @@ mod_input_ui <- function(id, choices_inputs){
   )
 }
     
-#' input Server Functions
+#' Input Server Function
 #'
-#' @param id 
-#' @param data_table 
+#' This function is the server-side logic for a Shiny module that handles the dynamic filtering of a data table based on user inputs from the UI. It updates input options and prepares filtered data for further use in charts, downloads, and other outputs.
+#'
+#' @param id A character string used to specify a namespace for the module.
+#' @param data_table A data frame that contains the data to be filtered based on user inputs.
+#'
+#' @return A list containing:
+#'   - `filtered_data`: A reactive expression returning the filtered data table.
+#'   - `filtered_data_download`: A reactive expression returning the filtered data prepared for download.
+#'   - `filtered_chart_data`: A reactive expression returning the filtered data prepared for charting.
+#'   - `parameters`: A list of reactive expressions for each user input (area, sector, size, and legal form).
 #'
 #' @noRd 
 mod_input_server <- function(id, data_table){

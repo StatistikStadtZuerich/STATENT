@@ -29,11 +29,16 @@ data_download <- function(link) {
   data.table::fread(link, encoding = "UTF-8") 
 }
 
-#' prepare_data 
+#' Prepare Data
 #'
-#' @description A utils function
+#' This utility function prepares and merges two datasets (`data_sector` and `data_size_legal`) by adding and modifying specific columns, ensuring consistency across the datasets. It then combines them into a single dataset and handles potential duplicates by retaining only the first occurrence of each unique combination of grouping variables.
 #'
-#' @return The return value, if any, from executing the utility.
+#' @param data_sector A data frame or tibble representing data segmented by sector.
+#' @param data_size_legal A data frame or tibble representing data segmented by size and legal form.
+#'
+#' @return A merged and cleaned data frame (tibble) combining the sector and size/legal form datasets.
+#'
+#' @description A utility function that processes and merges two datasets, ensuring consistent column structure and handling duplicates.
 #'
 #' @noRd
 prepare_data <- function(data_sector, data_size_legal) {
