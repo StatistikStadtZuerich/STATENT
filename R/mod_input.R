@@ -73,14 +73,55 @@ mod_input_server <- function(id, data_table) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
 
-    # update selection of sectors based on selected area
+    # update selection of sectors, size and legal based on selected area
     observe({
-      new_choices <- unique(data_table[data_table$RaumLang == input$select_area, ]$BrancheLang)
+      # sectors
+      new_choices_sector <- unique(data_table[data_table$RaumLang == input$select_area, ]$BrancheLang)
+      old_selected_sector <- input$select_sector
+      if (old_selected_sector %in% new_choices_sector) {
+        new_selected_sector <- old_selected_sector
+      } else {
+        new_selected_sector <- new_choices_sector[[1]]
+      }
       updateSelectInput(
         session = session,
         inputId = "select_sector",
-        choices = new_choices
-        # selected = new_choices[[1]]
+        choices = new_choices_sector,
+        selected = new_selected_sector
+      )
+      
+      # size
+      new_choices_size <- unique(
+            data_table[data_table$RaumLang == input$select_area, ]$BetriebsgrLang
+            )
+      old_selected_size <- input$select_size
+      if (old_selected_size %in% new_choices_size) {
+        new_selected_size <- old_selected_size
+      } else {
+        new_selected_size <- new_choices_size[[1]]
+      }
+      updateRadioButtons(
+        session = session,
+        inputId = "select_size",
+        choices = new_choices_size,
+        selected = new_selected_size
+      )
+      
+      # legal
+      new_choices_legal <- unique(
+            data_table[data_table$RaumLang == input$select_area, ]$RechtsformLang
+        )
+      old_selected_legal <- input$select_legal
+      if (old_selected_legal %in% new_choices_legal) {
+        new_selected_legal <- old_selected_legal
+      } else {
+        new_selected_legal <- new_choices_legal[[1]]
+      }
+      updateSelectInput(
+        session = session,
+        inputId = "select_legal",
+        choices = new_choices_legal,
+        selected = new_selected_legal
       )
     }) |>
       bindEvent(input$select_area)
