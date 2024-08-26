@@ -12,7 +12,7 @@
 reactable_table <- function(target_data) {
   reactable(
     target_data |>
-      mutate(Jahr = as.character(Jahr)),
+      mutate(Jahr = as.character(.data[["Jahr"]])),
     paginationType = "simple",
     language = reactableLang(
       noData = "Keine Einträge gefunden",

@@ -6,7 +6,11 @@
 #' @noRd
 app_server <- function(input, output, session) {
   # Your application server logic
-  reactive_data <- mod_input_server("input_widgets", prepare_data(data_vector[[1]], data_vector[[2]]))
+  reactive_data <- mod_input_server("input_widgets", 
+                                    prepare_data(
+                                      data_vector[[1]], 
+                                      data_vector[[2]])
+                                    )
 
 
   mod_result_server(

@@ -8,7 +8,6 @@
 #'
 #' @return na
 update_chart <- function(data, type, session) {
-  # print(glue::glue("sending message {data}"))
   session$sendCustomMessage(
     type = type,
     message = jsonlite::toJSON(data)

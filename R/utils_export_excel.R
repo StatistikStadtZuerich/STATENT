@@ -24,13 +24,13 @@ export_excel <- function(data_table, file, parameters) {
 
 
   data <- read_excel(hauptPfad, sheet = 1) |>
-    mutate(Date = ifelse(is.na(Date),
+    mutate(Date = ifelse(is.na(.data[["Date"]]),
       NA,
       format(Sys.Date(), "%d.%m.%Y")
     ))
 
   data <- data |>
-    mutate(Titel = ifelse(is.na(Titel),
+    mutate(Titel = ifelse(is.na(.data[["Titel"]]),
       NA,
       paste0(title_num, inputs_num)
     ))
@@ -43,16 +43,6 @@ export_excel <- function(data_table, file, parameters) {
       " ",
       "Quelle: Statistik Stadt Zürich, Statistik der Unternehmenssturktur (STATENT)"
     )
-  ) |>
-    as.data.frame()
-
-  workers <- list(
-    "Beschäftigte"
-  ) |>
-    as.data.frame()
-
-  vza <- list(
-    "Vollzeitäquivalente"
   ) |>
     as.data.frame()
 
