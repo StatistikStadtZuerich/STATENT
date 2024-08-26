@@ -16,7 +16,7 @@ add_dependencies <- function(tag) {
     src = c(href = "https://unpkg.com/d3@5/dist/"),
     script = "d3.min.js"
   )
-  
+
   sszvis <- htmltools::htmlDependency(
     name = "sszvis",
     version = "2.1.1",
@@ -24,6 +24,6 @@ add_dependencies <- function(tag) {
     script = "sszvis.min.js",
     stylesheet = "sszvis.css"
   )
-  
+
   tagList(d3, sszvis, tag)
 }

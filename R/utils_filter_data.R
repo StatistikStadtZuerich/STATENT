@@ -11,16 +11,16 @@
 #'
 #' @noRd
 filter_table_data <- function(data_table, input_values) {
-  
-  data_table |> 
-    filter(.data[["RaumLang"]] == input_values$select_area,
-           .data[["BrancheLang"]] == input_values$select_sector,
-           .data[["BetriebsgrLang"]] == input_values$select_size,
-           .data[["RechtsformLang"]] == input_values$select_legal,
-           .data[["Jahr"]] >= input_values$select_year[1],
-           .data[["Jahr"]] <= input_values$select_year[2]
-           ) |> 
-    select(-contains(c("Cd", "Sort", "Lang"))) |> 
+  data_table |>
+    filter(
+      .data[["RaumLang"]] == input_values$select_area,
+      .data[["BrancheLang"]] == input_values$select_sector,
+      .data[["BetriebsgrLang"]] == input_values$select_size,
+      .data[["RechtsformLang"]] == input_values$select_legal,
+      .data[["Jahr"]] >= input_values$select_year[1],
+      .data[["Jahr"]] <= input_values$select_year[2]
+    ) |>
+    select(-contains(c("Cd", "Sort", "Lang"))) |>
     distinct()
 }
 
@@ -37,28 +37,28 @@ filter_table_data <- function(data_table, input_values) {
 #'
 #' @noRd
 filter_download_data <- function(data_table, input_values) {
-
   filter_table_data(data_table, input_values) |>
     mutate(AnzVZA = case_when(
       is.na(.data[["AnzVZA"]]) ~ "( )",
       TRUE ~ as.character(.data[["AnzVZA"]])
-    )) |> 
+    )) |>
     mutate(AnzVZAW = case_when(
       is.na(.data[["AnzVZAW"]]) ~ "( )",
       TRUE ~ as.character(.data[["AnzVZAW"]])
-    )) |> 
+    )) |>
     mutate(AnzVZAM = case_when(
       is.na(.data[["AnzVZAM"]]) ~ "( )",
       TRUE ~ as.character(.data[["AnzVZAM"]])
-    )) |> 
-    rename("Arbeitsstätten" = "Arbeitsstaetten",
-           "Anzahl Beschäftigte" = "AnzBesch",
-           "Anzahl Beschäftigte (weiblich)" = "AnzBeschW",
-           "Anzahl Beschäftigte (männlich)" = "AnzBeschM",
-           "Anzahl Vollzeitäqui- valente" = "AnzVZA",
-           "Anzahl Vollzeitäqui- valente (weiblich)" = "AnzVZAW",
-           "Anzahl Vollzeitäqui- valente (männlich)" = "AnzVZAM"
-             ) 
+    )) |>
+    rename(
+      "Arbeitsstätten" = "Arbeitsstaetten",
+      "Anzahl Beschäftigte" = "AnzBesch",
+      "Anzahl Beschäftigte (weiblich)" = "AnzBeschW",
+      "Anzahl Beschäftigte (männlich)" = "AnzBeschM",
+      "Anzahl Vollzeitäqui- valente" = "AnzVZA",
+      "Anzahl Vollzeitäqui- valente (weiblich)" = "AnzVZAW",
+      "Anzahl Vollzeitäqui- valente (männlich)" = "AnzVZAM"
+    )
 }
 
 #' Filter Data for Charting
@@ -74,11 +74,10 @@ filter_download_data <- function(data_table, input_values) {
 #'
 #' @noRd
 filter_chart_data <- function(data_table, input_values) {
-  
   data <- filter_table_data(data_table, input_values)
 
   data |>
-    tidyr::gather(Button, Anzahl, -Jahr) |> 
+    tidyr::gather(Button, Anzahl, -Jahr) |>
     mutate(Kategorie = case_when(
       .data[["Button"]] == "Arbeitsstaetten" ~ "Total",
       .data[["Button"]] == "AnzBesch" ~ "Total",
@@ -87,7 +86,7 @@ filter_chart_data <- function(data_table, input_values) {
       .data[["Button"]] == "AnzVZAW" ~ "weiblich",
       .data[["Button"]] == "AnzBeschM" ~ "männlich",
       .data[["Button"]] == "AnzVZAM" ~ "männlich"
-    )) |> 
+    )) |>
     mutate(Button = case_when(
       .data[["Button"]] == "Arbeitsstaetten" ~ "Arbeitsstätten",
       .data[["Button"]] == "AnzBesch" ~ "Anzahl Beschäftigte",
