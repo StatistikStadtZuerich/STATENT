@@ -38,6 +38,18 @@ filter_table_data <- function(data_table, input_values) {
 filter_download_data <- function(data_table, input_values) {
 
   filter_table_data(data_table, input_values) |>
+    mutate(AnzVZA = case_when(
+      is.na(.data[["AnzVZA"]]) ~ "( )",
+      TRUE ~ as.character(.data[["AnzVZA"]])
+    )) |> 
+    mutate(AnzVZAW = case_when(
+      is.na(.data[["AnzVZAW"]]) ~ "( )",
+      TRUE ~ as.character(.data[["AnzVZAW"]])
+    )) |> 
+    mutate(AnzVZAM = case_when(
+      is.na(.data[["AnzVZAM"]]) ~ "( )",
+      TRUE ~ as.character(.data[["AnzVZAM"]])
+    )) |> 
     rename("Arbeitsstätten" = "Arbeitsstaetten",
            "Anzahl Beschäftigte" = "AnzBesch",
            "Anzahl Beschäftigte (weiblich)" = "AnzBeschW",
@@ -45,7 +57,7 @@ filter_download_data <- function(data_table, input_values) {
            "Anzahl Vollzeitäqui- valente" = "AnzVZA",
            "Anzahl Vollzeitäqui- valente (weiblich)" = "AnzVZAW",
            "Anzahl Vollzeitäqui- valente (männlich)" = "AnzVZAM"
-             )
+             ) 
 }
 
 #' filter_chart_data 
@@ -67,22 +79,22 @@ filter_chart_data <- function(data_table, input_values) {
   data |>
     tidyr::gather(Button, Anzahl, -Jahr) |> 
     mutate(Kategorie = case_when(
-      Button == "Arbeitsstaetten" ~ "Total",
-      Button == "AnzBesch" ~ "Total",
-      Button == "AnzVZA" ~ "Total",
-      Button == "AnzBeschW" ~ "weiblich",
-      Button == "AnzVZAW" ~ "weiblich",
-      Button == "AnzBeschM" ~ "männlich",
-      Button == "AnzVZAM" ~ "männlich"
+      .data[["Button"]] == "Arbeitsstaetten" ~ "Total",
+      .data[["Button"]] == "AnzBesch" ~ "Total",
+      .data[["Button"]] == "AnzVZA" ~ "Total",
+      .data[["Button"]] == "AnzBeschW" ~ "weiblich",
+      .data[["Button"]] == "AnzVZAW" ~ "weiblich",
+      .data[["Button"]] == "AnzBeschM" ~ "männlich",
+      .data[["Button"]] == "AnzVZAM" ~ "männlich"
     )) |> 
     mutate(Button = case_when(
-      Button == "Arbeitsstaetten" ~ "Arbeitsstätten",
-      Button == "AnzBesch" ~ "Anzahl Beschäftigte",
-      Button == "AnzVZA" ~ "Anzahl Vollzeitäquivalente",
-      Button == "AnzBeschW" ~ "Anzahl Beschäftigte",
-      Button == "AnzVZAW" ~ "Anzahl Vollzeitäquivalente",
-      Button == "AnzBeschM" ~ "Anzahl Beschäftigte",
-      Button == "AnzVZAM" ~ "Anzahl Vollzeitäquivalente"
+      .data[["Button"]] == "Arbeitsstaetten" ~ "Arbeitsstätten",
+      .data[["Button"]] == "AnzBesch" ~ "Anzahl Beschäftigte",
+      .data[["Button"]] == "AnzVZA" ~ "Anzahl Vollzeitäquivalente",
+      .data[["Button"]] == "AnzBeschW" ~ "Anzahl Beschäftigte",
+      .data[["Button"]] == "AnzVZAW" ~ "Anzahl Vollzeitäquivalente",
+      .data[["Button"]] == "AnzBeschM" ~ "Anzahl Beschäftigte",
+      .data[["Button"]] == "AnzVZAM" ~ "Anzahl Vollzeitäquivalente"
     ))
     
   
