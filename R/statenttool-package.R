@@ -2,7 +2,7 @@
 "_PACKAGE"
 #'
 #' @importFrom data.table fread
-#' @import dplyr 
+#' @import dplyr
 #' @importFrom golem add_resource_path activate_js favicon bundle_resources
 #' @import icons
 #' @import jpeg
@@ -16,8 +16,8 @@
 #' @import shinyjs
 #' @importFrom tidyr pivot_longer
 #' @import zuericssstyle
-#' 
-#' 
+#'
+#'
 ## usethis namespace: start
 #' @importFrom readr read_csv
 ## usethis namespace: end
