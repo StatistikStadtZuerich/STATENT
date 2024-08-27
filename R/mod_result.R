@@ -80,7 +80,7 @@ mod_result_server <- function(id, data_table, chart_data, parameters) {
 
     # title for table
     output$tableTitle <- renderText({
-      paste0("Die folgende Tabelle entspricht Ihren Suchkriterien")
+      "Die folgende Tabelle entspricht Ihren Suchkriterien"
     })
 
     output$results_table <- renderReactable(
