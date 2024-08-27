@@ -73,7 +73,7 @@ mod_input_server <- function(id, data_table) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
     
-    # update selection of sectors, size and legal based on selected area
+    # make input widgets interdependent
     observe({
       # sectors
       new_choices_sector <- unique(data_table[data_table$RaumLang == input$select_area, ]$BrancheLang)
