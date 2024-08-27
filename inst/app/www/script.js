@@ -121,6 +121,7 @@ Global variables exposed by Shiny (dependencies): d3, sszvis
       state.lineData = sszvis.cascade()
         .arrayBy(cAcc, d3.ascending)
         .apply(state.data);
+      state.maxValue = d3.max(state.data, yAcc);
       state.dates = d3.extent(state.data, xAcc);
       state.categories = sszvis.set(state.data, cAcc);
 
@@ -145,7 +146,7 @@ Global variables exposed by Shiny (dependencies): d3, sszvis
       .range([0, bounds.innerWidth]);
 
     var yScale = d3.scaleLinear()
-      .domain(yAxisExtent(state.selectedFilter))
+      .domain([0, state.maxValue*1.2])
       .range([bounds.innerHeight, 0]);
 
     // CONFIG
