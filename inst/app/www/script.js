@@ -167,6 +167,9 @@ Global variables exposed by Shiny (dependencies): d3, sszvis
       .datum(state.lineData);
 
    var controlLayer = sszvis.createHtmlLayer(config.targetElement);
+   
+   // Entferne alte Linien (sofern vorhanden)
+   chartLayer.selectGroup('line').selectAll('*').remove();
 
     // Components
     var line = sszvis.line()
