@@ -134,6 +134,25 @@ mod_input_server <- function(id, data_table) {
           selected = new_selected_legal
         )
       }
+      
+      # area
+      new_choices_area <- unique(data_table[data_table$BetriebsgrLang == input$select_size &
+                                              data_table$RechtsformLang == input$select_legal, ]$RaumLang)
+      # update only if there are new choices
+      if (length(new_choices_area) > 0) {
+        old_selected_area <- input$select_area
+        if (old_selected_area %in% new_choices_area) {
+          new_selected_area <- old_selected_area
+        } else {
+          new_selected_area <- new_choices_area[[1]]
+        }
+        updateSelectInput(
+          session = session,
+          inputId = "select_area",
+          choices = new_choices_area,
+          selected = new_selected_area
+        )
+      }
     }) |>
       bindEvent(input$select_area, input$select_size, input$select_legal)
     
