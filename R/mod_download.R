@@ -90,7 +90,7 @@ mod_download_server <- function(id, data_table, data_table_excel, parameters) {
         paste0(name, ".xlsx")
       },
       content = function(file) {
-        rlang::inject(export_excel(data_table_excel, file, parameters))
+        export_excel(data_table_excel, file, parameters)
       }
     )
   })
