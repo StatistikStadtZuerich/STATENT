@@ -20,12 +20,17 @@ mod_result_ui <- function(id) {
     h3(textOutput(ns("subtitle"))),
     
     # Table Title
-    h4(textOutput(ns("tableTitle"))),
+    h4(uiOutput(ns("tableTitle"))),
     
-    reactableOutput(ns("results_table")),
-
-    # div for d3 chart; namespace is dealt with in server/JS message handler
-    div(id = ns("sszvis-chart"))
+    
+    # Conditional UI output for the module
+    # uiOutput(ns("conditional_module_ui"))
+    conditionalPanel(
+      condition = "output.infotext !== null",  # Correct condition to hide/show
+      ns = ns,
+      mod_result_table_chart_ui(ns("table_chart"))
+    ),
+    textOutput(ns("infotext"))
   )
 }
 
@@ -57,24 +62,43 @@ mod_result_server <- function(id, data_table, chart_data, parameters) {
       bindEvent(parameters$input_size(), parameters$input_legal())
     
     
-
-    # title for table
+    # Reactive for checking data availability
+    data_availability <- reactive({
+      req(data_table())
+      test <- data_table()
+      nrow(test) > 0
+    }) |> 
+      bindEvent(data_table())
+    
+    # Title for table
     output$tableTitle <- renderText({
       paste0("Die folgende Tabelle entspricht Ihren Suchkriterien")
     })
-
-    output$results_table <- renderReactable(
-      reactable_table(data_table())
-    )
-
-
-    # create and send data for bar chart
+    
+    # Infotext to show messages
+    output$infotext <- renderText({
+      if (data_availability()) {
+        ""  # Clear message when data is available
+      } else {
+        "Es gibt keine Daten mit den ausgewählten Suchkriterien."
+      }
+    })
+    
+    # Ensure 'infotext' is marked as dynamic for conditionalPanel
+    outputOptions(output, "infotext", suspendWhenHidden = FALSE)
+    
+    # Observe and update the UI elements based on data availability
     observe({
-      chart_data <- chart_data()
-      id <- paste0("#", ns("sszvis-chart"))
-      update_chart(list("data" = chart_data, "container_id" = id), "update_data", session)
-    }) |>
-      bindEvent(chart_data())
+      if (data_availability()) {  # Data is available
+        mod_result_table_chart_server(ns("table_chart"), data_table(), chart_data())
+      } else {
+        # Explicitly clear or reset the table/chart output when no data is available
+        output$infotext <- renderText({
+          "Es gibt keine Daten mit den ausgewählten Suchkriterien."
+        })
+      }
+    })
+    
   })
 }
 
