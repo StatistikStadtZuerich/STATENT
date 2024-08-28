@@ -78,7 +78,9 @@ filter_chart_data <- function(data_table, input_values) {
   data <- filter_table_data(data_table, input_values)
 
   data |>
-    tidyr::gather(Button, Anzahl, -Jahr) |>
+    pivot_longer(cols = -Jahr, 
+                 names_to = "Button", 
+                 values_to = "Anzahl") |>
     mutate(Kategorie = case_when(
       .data[["Button"]] == "Arbeitsstaetten" ~ "Total",
       .data[["Button"]] == "AnzBesch" ~ "Total",
