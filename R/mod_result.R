@@ -14,30 +14,14 @@ mod_result_ui <- function(id) {
   tagList(
 
     # Table Title (Sector)
-    tags$div(
-      id = ns("title_id"),
-      class = "title_div",
-      textOutput(ns("title"))
-    ),
-
-    # Table Subtitle (Legal & Size)
-    tags$div(
-      id = ns("subtitle_id"),
-      class = "subtitle_div",
-      textOutput(ns("subtitle"))
-    ),
+    h1(textOutput(ns("title"))),
 
     # Table Subsubtitle (Area)
-    tags$div(
-      id = ns("subSubtitle_id"),
-      class = "subSubtitle_div",
-      textOutput(ns("subSubtitle"))
-    ),
-    tags$div(
-      id = ns("tableTitle_id"),
-      class = "tableTitle_div",
-      textOutput(ns("tableTitle"))
-    ),
+    h3(textOutput(ns("subtitle"))),
+    
+    # Table Title
+    h4(textOutput(ns("tableTitle"))),
+    
     reactableOutput(ns("results_table")),
 
     # div for d3 chart; namespace is dealt with in server/JS message handler
@@ -62,21 +46,17 @@ mod_result_server <- function(id, data_table, chart_data, parameters) {
 
     # Title
     output$title <- renderText({
-      parameters$input_area()
+      paste0(parameters$input_area(), ": ", parameters$input_sector())
     }) |>
-      bindEvent(parameters$input_area())
+      bindEvent(parameters$input_area(), parameters$input_sector())
 
     # Subtitle
     output$subtitle <- renderText({
-      paste0(parameters$input_sector())
-    }) |>
-      bindEvent(parameters$input_sector())
-
-    # Sub-Subtitle
-    output$subSubtitle <- renderText({
       paste0(parameters$input_size(), ", ", parameters$input_legal())
     }) |>
       bindEvent(parameters$input_size(), parameters$input_legal())
+    
+    
 
     # title for table
     output$tableTitle <- renderText({
