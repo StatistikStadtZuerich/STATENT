@@ -25,14 +25,22 @@ mod_result_table_chart_server <- function(id, data_table, chart_data){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
  
-    output$results_table <- renderReactable(
-      reactable_table(data_table)
-    )
+    observe({
+      req(data_table())
+      
+      output$results_table <- renderReactable(
+        reactable_table(data_table)
+      )
+    })
     
     # create and send data for bar chart
- 
-    id <- paste0("#", ns("sszvis-chart"))
-    update_chart(list("data" = chart_data, "container_id" = id), "update_data", session)
+    observe({
+      
+      req(chart_data())
+      chart_data <- chart_data()
+      id <- paste0("#", ns("sszvis-chart"))
+      update_chart(list("data" = chart_data, "container_id" = id), "update_data", session)
+    })
 
     
   })

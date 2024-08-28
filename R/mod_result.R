@@ -26,7 +26,7 @@ mod_result_ui <- function(id) {
     # Conditional UI output for the module
     # uiOutput(ns("conditional_module_ui"))
     conditionalPanel(
-      condition = "output.infotext !== null",  # Correct condition to hide/show
+      condition = "output.infotext == ''",  # Correct condition to hide/show
       ns = ns,
       mod_result_table_chart_ui(ns("table_chart"))
     ),
@@ -48,7 +48,6 @@ mod_result_server <- function(id, data_table, chart_data, parameters) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
 
-
     # Title
     output$title <- renderText({
       paste0(parameters$input_area(), ": ", parameters$input_sector())
@@ -65,8 +64,14 @@ mod_result_server <- function(id, data_table, chart_data, parameters) {
     # Reactive for checking data availability
     data_availability <- reactive({
       req(data_table())
-      test <- data_table()
-      nrow(test) > 0
+      data <- data_table()
+      if (nrow(data) > 0) {
+        available <- 1
+      } else {
+        available <- 0
+      }
+      
+      return(available)
     }) |> 
       bindEvent(data_table())
     
@@ -75,29 +80,27 @@ mod_result_server <- function(id, data_table, chart_data, parameters) {
       paste0("Die folgende Tabelle entspricht Ihren Suchkriterien")
     })
     
-    # Infotext to show messages
-    output$infotext <- renderText({
-      if (data_availability()) {
-        ""  # Clear message when data is available
-      } else {
-        "Es gibt keine Daten mit den ausgewählten Suchkriterien."
-      }
-    })
     
-    # Ensure 'infotext' is marked as dynamic for conditionalPanel
-    outputOptions(output, "infotext", suspendWhenHidden = FALSE)
+    # Initialize the nested module server function
+    mod_result_table_chart_server(ns("table_chart"), data_table, chart_data)
     
-    # Observe and update the UI elements based on data availability
+    # Observe and update the infotext and UI elements based on data availability
     observe({
-      if (data_availability()) {  # Data is available
-        mod_result_table_chart_server(ns("table_chart"), data_table(), chart_data())
+      if (data_availability() > 0) {
+        shinyjs::show(ns("module_container"))  # Show the module container
+        output$infotext <- renderText({
+          ""
+        })
       } else {
-        # Explicitly clear or reset the table/chart output when no data is available
+        shinyjs::hide(ns("module_container"))  # Hide the module container
         output$infotext <- renderText({
           "Es gibt keine Daten mit den ausgewählten Suchkriterien."
         })
       }
     })
+    
+    # Ensure infotext is reactive and dynamically updates
+    # outputOptions(output, "infotext", suspendWhenHidden = FALSE)
     
   })
 }
