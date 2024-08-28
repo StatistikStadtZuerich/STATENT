@@ -6,11 +6,11 @@
 #' @noRd
 app_ui <- function(request) {
   choices_inputs <- list(
-    choices_area = unique(data_vector[[1]]$RaumLang),
-    choices_sector = unique(data_vector[[1]]$BrancheLang),
-    choices_size = unique(data_vector[[2]]$BetriebsgrLang),
-    choices_legal = unique(data_vector[[2]]$RechtsformLang),
-    choices_year = unique(data_vector[[1]]$Jahr)
+    choices_area = unique(statent_data$RaumLang),
+    choices_sector = unique(statent_data$BrancheLang),
+    choices_size = unique(statent_data$BetriebsgrLang),
+    choices_legal = unique(statent_data$RechtsformLang),
+    choices_year = unique(statent_data$Jahr)
   )
 
   tagList(
