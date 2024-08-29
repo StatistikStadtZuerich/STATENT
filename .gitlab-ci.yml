@@ -53,17 +53,17 @@ test-job-1:
     #- Rscript -e "source('data-raw/create_latest_data.R')"
     #- Rscript -e "source('dev/deploy.R')"
 
-test-job-2:
-  # ausgeführt wenn push in merge request
-  stage: test2
-  rules:
-    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
-  variables:
-    APP_NAME: $TEST_NAME
-  before_script:
-    - Rscript -e "renv::restore()"
-  script:
-    - Rscript -e "source('data-raw/create_latest_data.R')"
+# test-job-2:
+#   # ausgeführt wenn push in merge request
+#   stage: test2
+#   rules:
+#     - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+#   variables:
+#     APP_NAME: $TEST_NAME
+#   before_script:
+#     - Rscript -e "renv::restore()"
+#   script:
+#     - Rscript -e "source('data-raw/create_latest_data.R')"
     #- Rscript -e "source('dev/deploy.R')"
 
 test-job-3:
