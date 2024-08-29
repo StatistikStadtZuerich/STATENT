@@ -76,7 +76,12 @@ mod_input_server <- function(id, data_table) {
     # make input widgets interdependent
     observe({
       # sectors
-      new_choices_sector <- unique(data_table[data_table$RaumLang == input$select_area, ]$BrancheLang)
+      new_choices_sector <- data_table |> 
+        filter(RaumLang == input$select_area) |> 
+        select(all_of(c("BrancheLang", "BrancheSort"))) |> 
+        distinct() |> 
+        arrange(BrancheSort) |> 
+        pull(BrancheLang)
       # update only if there are new choices
       if (length(new_choices_sector) > 0) {
         old_selected_sector <- input$select_sector
@@ -94,10 +99,13 @@ mod_input_server <- function(id, data_table) {
       }
       
       # size
-      new_choices_size <- unique(
-        data_table[data_table$RaumLang == input$select_area &
-                     data_table$RechtsformLang == input$select_legal, ]$BetriebsgrLang
-      )
+      new_choices_size <- data_table |> 
+        filter(RaumLang == input$select_area,
+               RechtsformLang == input$select_legal) |> 
+        select(all_of(c("BetriebsgrLang", "BetriebsgrSort"))) |> 
+        distinct() |> 
+        arrange(BetriebsgrSort) |> 
+        pull(BetriebsgrLang)
       # update only if there are new choices
       if (length(new_choices_size) > 0) {
         old_selected_size <- input$select_size
@@ -115,10 +123,13 @@ mod_input_server <- function(id, data_table) {
       }
       
       # legal
-      new_choices_legal <- unique(
-        data_table[data_table$RaumLang == input$select_area &
-                     data_table$BetriebsgrLang == input$select_size, ]$RechtsformLang
-      )
+      new_choices_legal <- data_table |> 
+        filter(RaumLang == input$select_area,
+               BetriebsgrLang == input$select_size) |> 
+        select(all_of(c("RechtsformLang", "RechtsformSort"))) |> 
+        distinct() |> 
+        arrange(RechtsformSort) |> 
+        pull(RechtsformLang)
       # update only if there are new choices
       if (length(new_choices_legal) > 0) {
         old_selected_legal <- input$select_legal
@@ -136,8 +147,13 @@ mod_input_server <- function(id, data_table) {
       }
       
       # area
-      new_choices_area <- unique(data_table[data_table$BetriebsgrLang == input$select_size &
-                                              data_table$RechtsformLang == input$select_legal, ]$RaumLang)
+      new_choices_area <- data_table |> 
+        filter(BetriebsgrLang == input$select_size,
+               RechtsformLang == input$select_legal) |> 
+        select(all_of(c("RaumLang", "RaumSort"))) |> 
+        distinct() |> 
+        arrange(RaumSort) |> 
+        pull(RaumLang)
       # update only if there are new choices
       if (length(new_choices_area) > 0) {
         old_selected_area <- input$select_area

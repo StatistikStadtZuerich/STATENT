@@ -59,6 +59,7 @@ filter_download_data <- function(data_table, input_values) {
       "Anzahl Vollzeitäqui- valente (weiblich)" = "AnzVZAW",
       "Anzahl Vollzeitäqui- valente (männlich)" = "AnzVZAM"
     )
+    
 }
 
 #' Filter Data for Charting
@@ -95,5 +96,6 @@ filter_chart_data <- function(data_table, input_values) {
       .data[["Button"]] == "AnzVZAW" ~ "Anzahl Vollzeitäquivalente",
       .data[["Button"]] == "AnzBeschM" ~ "Anzahl Beschäftigte",
       .data[["Button"]] == "AnzVZAM" ~ "Anzahl Vollzeitäquivalente"
-    ))
+    )) |> 
+    filter(!is.na(Anzahl))
 }
