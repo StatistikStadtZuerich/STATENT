@@ -48,7 +48,7 @@ mod_input_ui <- function(id, choices_inputs) {
       value = c(min(choices_inputs[["choices_year"]]), 
                 max(choices_inputs[["choices_year"]])),
       step = 1,
-      ticks = TRUE,
+      ticks = FALSE,
       min = min(choices = choices_inputs[["choices_year"]]),
       max = max(choices = choices_inputs[["choices_year"]]),
       sep = ""
