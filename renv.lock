@@ -1144,14 +1144,12 @@
     "reactR": {
       "Package": "reactR",
       "Version": "0.5.0",
-      "Source": "URL",
-      "Repository": "CRAN",
-      "RemoteType": "url",
-      "RemoteUrl": "https://cran.r-project.org/src/contrib/Archive/reactR/reactR_0.5.0.tar.gz",
+      "Source": "Repository",
+      "Repository": "RSPM",
       "Requirements": [
         "htmltools"
       ],
-      "Hash": "67b0f13b2aa88e963ffb60c79b1797b1"
+      "Hash": "c9014fd1a435b2d790dd506589cb24e5"
     },
     "reactable": {
       "Package": "reactable",
