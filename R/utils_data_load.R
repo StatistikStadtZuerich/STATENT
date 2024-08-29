@@ -62,7 +62,8 @@ prepare_data <- function(data_sector, data_size_legal) {
         "BetriebsgrLang"
       )),
       everything()
-    )
+    ) |> 
+    filter(BrancheSort != 0)
 
   data_size_legal_mutate <- data_size_legal |>
     mutate(
@@ -85,27 +86,40 @@ prepare_data <- function(data_sector, data_size_legal) {
       )),
       everything()
     )
-
+  
   data_merge <- bind_rows(data_sector_mutate, data_size_legal_mutate) |>
     mutate(across(
       all_of(c("AnzVZA", "AnzVZAW", "AnzVZAM")),
       as.numeric
-    )) |>
-    # certain values appear double since they are in both OGD datasets
-    # cannot use distinct since value may differ slightly due to rounding
-    group_by(across(c(
-      "Jahr",
-      "RaumSort",
-      "RaumLang",
-      "BrancheSort",
-      "BrancheCd",
-      "BrancheLang",
-      "RechtsformSort",
-      "RechtsformLang",
-      "BetriebsgrSort",
-      "BetriebsgrLang"
-    ))) |>
-    slice_head(n = 1) |>
-    ungroup()
+    )) 
+    # the "total" values appear double since they are in both OGD datasets
+    # cannot use distinct() since VZA-values may differ slightly due to rounding
+    # these are the common variables to group the variables
+    # slice_head(1) ensures that the "total" values are only once in the dataset
+    # group_by(across(c(
+    #   "Jahr",
+    #   "RaumSort",
+    #   "RaumLang",
+    #   "BrancheSort",
+    #   "BrancheCd",
+    #   "BrancheLang",
+    #   "RechtsformSort",
+    #   "RechtsformLang",
+    #   "BetriebsgrSort",
+    #   "BetriebsgrLang"
+    # ))) |>
+    # slice_head(n = 1) |>
+    # ungroup()
+  # distinct(across(all_of(c(
+  #     "Jahr",
+  #     "RaumSort",
+  #     "RaumLang",
+  #     "BrancheSort",
+  #     "BrancheCd",
+  #     "BrancheLang",
+  #     "RechtsformSort",
+  #     "RechtsformLang",
+  #     "BetriebsgrSort",
+  #     "BetriebsgrLang"))))
 }
 # test <- prepare_data(data_vector[[1]], data_vector[[2]])

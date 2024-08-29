@@ -20,8 +20,7 @@ filter_table_data <- function(data_table, input_values) {
       .data[["Jahr"]] >= input_values$select_year[1],
       .data[["Jahr"]] <= input_values$select_year[2]
     ) |>
-    select(-contains(c("Cd", "Sort", "Lang"))) |>
-    distinct()
+    select(-contains(c("Cd", "Sort", "Lang"))) 
 }
 
 #' Filter Data for Download
