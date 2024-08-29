@@ -20,6 +20,9 @@ cache:
 stages:
   - deploy_test
   - deploy_prod
+  - test1
+  - test2
+  - test3
 
 deploy-job-test:
   # ausgeführt wenn push in merge request
@@ -34,6 +37,46 @@ deploy-job-test:
     - Rscript -e "renv::status()"
     #- Rscript -e "source('data-raw/create_latest_data.R')"
     #- Rscript -e "source('dev/deploy.R')"
+
+test-job-1:
+  # ausgeführt wenn push in merge request
+  stage: test1
+  rules:
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+  variables:
+    APP_NAME: $TEST_NAME
+  before_script:
+    - Rscript -e "renv::restore()"
+  script:
+    - Rscript -e "a <- data.table::fread('https://data.integ.stadt-zuerich.ch/dataset/int_dwh_bfs_wir_statent_ast_beschaeftigte_vza_sektor_jahr_od2551/download/WIR255OD2551.csv', encoding = 'UTF-8')"
+    #- Rscript -e "source('data-raw/create_latest_data.R')"
+    #- Rscript -e "source('dev/deploy.R')"
+
+test-job-2:
+  # ausgeführt wenn push in merge request
+  stage: test2
+  rules:
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+  variables:
+    APP_NAME: $TEST_NAME
+  before_script:
+    - Rscript -e "renv::restore()"
+  script:
+    - Rscript -e "source('data-raw/create_latest_data.R')"
+    #- Rscript -e "source('dev/deploy.R')"
+
+test-job-3:
+  # ausgeführt wenn push in merge request
+  stage: test3
+  rules:
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+  variables:
+    APP_NAME: $TEST_NAME
+  before_script:
+    - Rscript -e "renv::restore()"
+  script:
+    #- Rscript -e "source('data-raw/create_latest_data.R')"
+    - Rscript -e "source('dev/deploy.R')"
 
 deploy-job-prod:
   # ausgeführt wenn Push auf Main branch
