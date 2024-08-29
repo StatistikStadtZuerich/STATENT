@@ -1143,13 +1143,15 @@
     },
     "reactR": {
       "Package": "reactR",
-      "Version": "0.6.0",
-      "Source": "Repository",
+      "Version": "0.5.0",
+      "Source": "URL",
       "Repository": "CRAN",
+      "RemoteType": "url",
+      "RemoteUrl": "https://cran.r-project.org/src/contrib/Archive/reactR/reactR_0.5.0.tar.gz",
       "Requirements": [
         "htmltools"
       ],
-      "Hash": "10f4d661c235181648a5958c02c0382a"
+      "Hash": "67b0f13b2aa88e963ffb60c79b1797b1"
     },
     "reactable": {
       "Package": "reactable",
@@ -1884,8 +1886,8 @@
       "Package": "zuericssstyle",
       "Version": "0.0.1.0003",
       "Source": "GitHub",
-      "Remotes": "github::daqana/dqshiny",
       "RemoteType": "github",
+      "Remotes": "github::daqana/dqshiny",
       "RemoteHost": "api.github.com",
       "RemoteRepo": "zuericssstyle",
       "RemoteUsername": "StatistikStadtZuerich",
