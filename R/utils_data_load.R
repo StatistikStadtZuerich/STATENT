@@ -9,8 +9,8 @@
 get_params_data_load <- function() {
   # URLs for all the candidates
   urls_data <- c(
-    "https://data.integ.stadt-zuerich.ch/dataset/int_dwh_bfs_wir_statent_ast_beschaeftigte_vza_sektor_jahr_od2551/download/WIR255OD2551.csv",
-    "https://data.integ.stadt-zuerich.ch/dataset/int_dwh_bfs_wir_statent_ast_beschaeftigte_vza_rechtsform_betrgr_jahr_od2552/download/WIR255OD2552.csv"
+    "https://data.stadt-zuerich.ch/dataset/bfs_wir_statent_ast_beschaeftigte_vza_sektor_jahr_od2551/download/WIR255OD2551.csv",
+    "https://data.stadt-zuerich.ch/dataset/bfs_wir_statent_ast_beschaeftigte_vza_rechtsform_betrgr_jahr_od2552/download/WIR255OD2552.csv"
   )
 
 
