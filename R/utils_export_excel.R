@@ -20,7 +20,7 @@ export_excel <- function(data_table, file, parameters) {
   # Manipulate Data for the two queries
   title_num <- "Anzahl Arbeitsstätten, Beschäftigte und Vollzeitäquivalente: "
 
-  inputs_num <- paste0(parameters$input_area(), ", ", parameters$input_sector(), ", ", parameters$input_size())
+  inputs_num <- paste0(parameters$input_area(), ", ", parameters$input_sector(), ", ", parameters$input_size(), ", ", parameters$input_legal())
 
 
   data <- read_excel(hauptPfad, sheet = 1) |>
