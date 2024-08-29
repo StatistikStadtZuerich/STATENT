@@ -30,7 +30,7 @@ mod_download_ui <- function(id) {
       sszOgdDownload(
         outputId = ns("ogdDown"),
         label = "OGD",
-        href = "https://data.stadt-zuerich.ch/dataset?tags=lima",
+        href = "https://data.stadt-zuerich.ch/dataset?q=statent",
         image = img(ssz_icons$link)
       )
     )
