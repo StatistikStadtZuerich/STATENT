@@ -7,23 +7,27 @@ test_that("check filter function", {
     "select_legal" = "Alle Rechtsformen",
     "select_year" = c(2011, 2021)
   )
-  
-  filtered_data <- filter_table_data(statent_data, my_inputs)
+
   
   # check columns: 8
   expect_equal(
-    ncol(filtered_data),
+    ncol(filter_table_data(statent_data, my_inputs)),
     8
   )
-  # check rows: only 11 (since 11 years)
-  expect_equal(
-    nrow(filtered_data),
-    11
-  )
+  
+  # check column names
+  expect_named(filter_table_data(statent_data, my_inputs), 
+               c("Jahr",
+                 "Arbeitsstaetten", 
+                 "AnzBesch","AnzBeschW",
+                 "AnzBeschM", 
+                 "AnzVZA" , 
+                 "AnzVZAW",
+                 "AnzVZAM"))
   
   #test specific row
   row_to_be_selected <- 5
-  year_to_be_selected <- filtered_data |>
+  year_to_be_selected <- filter_table_data(statent_data, my_inputs) |>
     slice(row_to_be_selected) |>
     pull(Jahr)
   
@@ -37,5 +41,19 @@ test_that("check filter function", {
     filter_table_data(statent_data, my_inputs),
     "data.frame"
   )
+  
+  # expect different df if input is changed
+  different_inputs <- list(
+    "select_area" = "Rathaus",
+    "select_sector" = "Alle Sektoren",
+    "select_size" = "Alle Betriebsgrössen",
+    "select_legal" = "Alle Rechtsformen",
+    "select_year" = c(2011, 2021)
+  )
+  
+  expect_failure(expect_equal(
+    filter_table_data(statent_data, my_inputs), 
+    filter_table_data(statent_data, different_inputs)))
+ 
   
 })
