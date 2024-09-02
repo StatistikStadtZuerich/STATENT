@@ -7,18 +7,31 @@ test_that("test prepare data", {
   expect_true(sum(is.na(data_vector[[2]]$AnzVZA)) == 0)
   
   expect_snapshot_value(prepare_data(data_vector[[1]], data_vector[[2]]), style = "json2")
+
+  # check column names
+  expect_named(prepare_data(data_vector[[1]], data_vector[[2]]), 
+               c("Jahr",
+                 "RaumSort",
+                 "RaumLang" ,
+                 "BrancheSort",
+                 "BrancheCd",
+                 "BrancheLang",
+                 "RechtsformSort",
+                 "RechtsformLang",
+                 "BetriebsgrSort",
+                 "BetriebsgrLang",
+                 "Arbeitsstaetten", 
+                 "AnzBesch",
+                 "AnzBeschW",
+                 "AnzBeschM", 
+                 "AnzVZA" , 
+                 "AnzVZAW",
+                 "AnzVZAM"))
   
-  prepared_data <- prepare_data(data_vector[[1]], data_vector[[2]])
-  
-  # check columns: 17
-  expect_equal(
-    ncol(prepared_data),
-    17
-  )
   
   # check data type
   expect_s3_class(
-    prepared_data,
+    prepare_data(data_vector[[1]], data_vector[[2]]),
     "data.frame"
   )
   

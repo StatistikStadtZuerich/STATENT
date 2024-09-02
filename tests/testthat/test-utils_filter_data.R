@@ -9,12 +9,6 @@ test_that("check filter function", {
   )
 
   
-  # check columns: 8
-  expect_equal(
-    ncol(filter_table_data(statent_data, my_inputs)),
-    8
-  )
-  
   # check column names
   expect_named(filter_table_data(statent_data, my_inputs), 
                c("Jahr",
@@ -26,14 +20,12 @@ test_that("check filter function", {
                  "AnzVZAM"))
   
   #test specific row
-  row_to_be_selected <- 5
   year_to_be_selected <- filter_table_data(statent_data, my_inputs) |>
-    slice(row_to_be_selected) |>
     pull(Jahr)
   
   expect_equal(
-    year_to_be_selected,
-    2015
+    year_to_be_selected ,
+    seq(2011, 2021, by = 1)
   )
   
   # check data type
@@ -51,9 +43,15 @@ test_that("check filter function", {
     "select_year" = c(2011, 2021)
   )
   
-  expect_failure(expect_equal(
-    filter_table_data(statent_data, my_inputs), 
-    filter_table_data(statent_data, different_inputs)))
+  expect_failure(
+    expect_true(
+      all_equal(
+        filter_table_data(statent_data, my_inputs), 
+        filter_table_data(statent_data, different_inputs),
+        ignore_col_order = FALSE
+      )
+    )
+  )
  
   
 })
