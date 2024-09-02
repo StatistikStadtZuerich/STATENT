@@ -67,7 +67,7 @@ reactable_table <- function(target_data) {
     ),
     outlined = TRUE,
     highlight = TRUE,
-    defaultPageSize = 10,
+    defaultPageSize = 15,
     rowClass = JS("function(rowInfo) {return rowInfo.selected ? 'selected' : ''}"),
     rowStyle = JS("function(rowInfo) {if (rowInfo.selected) { return { backgroundColor: '#F2F2F2'}}}")
   )
