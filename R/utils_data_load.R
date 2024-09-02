@@ -9,8 +9,8 @@
 get_params_data_load <- function() {
   # URLs for all the candidates
   urls_data <- c(
-    "https://data.integ.stadt-zuerich.ch/dataset/int_dwh_bfs_wir_statent_ast_beschaeftigte_vza_sektor_jahr_od2551/download/WIR255OD2551.csv",
-    "https://data.integ.stadt-zuerich.ch/dataset/int_dwh_bfs_wir_statent_ast_beschaeftigte_vza_rechtsform_betrgr_jahr_od2552/download/WIR255OD2552.csv"
+    "https://data.stadt-zuerich.ch/dataset/bfs_wir_statent_ast_beschaeftigte_vza_sektor_jahr_od2551/download/WIR255OD2551.csv",
+    "https://data.stadt-zuerich.ch/dataset/bfs_wir_statent_ast_beschaeftigte_vza_rechtsform_betrgr_jahr_od2552/download/WIR255OD2552.csv"
   )
 
 
@@ -62,7 +62,8 @@ prepare_data <- function(data_sector, data_size_legal) {
         "BetriebsgrLang"
       )),
       everything()
-    )
+    ) |> 
+    filter(BrancheSort != 0)
 
   data_size_legal_mutate <- data_size_legal |>
     mutate(
@@ -85,27 +86,11 @@ prepare_data <- function(data_sector, data_size_legal) {
       )),
       everything()
     )
-
+  
   data_merge <- bind_rows(data_sector_mutate, data_size_legal_mutate) |>
     mutate(across(
       all_of(c("AnzVZA", "AnzVZAW", "AnzVZAM")),
       as.numeric
-    )) |>
-    # certain values appear double since they are in both OGD datasets
-    # cannot use distinct since value may differ slightly due to rounding
-    group_by(across(c(
-      "Jahr",
-      "RaumSort",
-      "RaumLang",
-      "BrancheSort",
-      "BrancheCd",
-      "BrancheLang",
-      "RechtsformSort",
-      "RechtsformLang",
-      "BetriebsgrSort",
-      "BetriebsgrLang"
-    ))) |>
-    slice_head(n = 1) |>
-    ungroup()
+    )) 
 }
 # test <- prepare_data(data_vector[[1]], data_vector[[2]])
