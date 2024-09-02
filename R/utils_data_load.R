@@ -92,34 +92,5 @@ prepare_data <- function(data_sector, data_size_legal) {
       all_of(c("AnzVZA", "AnzVZAW", "AnzVZAM")),
       as.numeric
     )) 
-    # the "total" values appear double since they are in both OGD datasets
-    # cannot use distinct() since VZA-values may differ slightly due to rounding
-    # these are the common variables to group the variables
-    # slice_head(1) ensures that the "total" values are only once in the dataset
-    # group_by(across(c(
-    #   "Jahr",
-    #   "RaumSort",
-    #   "RaumLang",
-    #   "BrancheSort",
-    #   "BrancheCd",
-    #   "BrancheLang",
-    #   "RechtsformSort",
-    #   "RechtsformLang",
-    #   "BetriebsgrSort",
-    #   "BetriebsgrLang"
-    # ))) |>
-    # slice_head(n = 1) |>
-    # ungroup()
-  # distinct(across(all_of(c(
-  #     "Jahr",
-  #     "RaumSort",
-  #     "RaumLang",
-  #     "BrancheSort",
-  #     "BrancheCd",
-  #     "BrancheLang",
-  #     "RechtsformSort",
-  #     "RechtsformLang",
-  #     "BetriebsgrSort",
-  #     "BetriebsgrLang"))))
 }
 # test <- prepare_data(data_vector[[1]], data_vector[[2]])

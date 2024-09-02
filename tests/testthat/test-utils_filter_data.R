@@ -45,7 +45,7 @@ test_that("check filter function", {
   
   expect_failure(
     expect_true(
-      all_equal(
+      all.equal(
         filter_table_data(statent_data, my_inputs), 
         filter_table_data(statent_data, different_inputs),
         ignore_col_order = FALSE
