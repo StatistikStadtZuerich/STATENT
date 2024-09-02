@@ -77,13 +77,41 @@ mod_result_server <- function(id, data_table, chart_data, parameters) {
     }) |>
       bindEvent(parameters$input_size(), parameters$input_legal())
 
-    # title for table
-    output$tableTitle <- renderText({
-      "Die folgende Tabelle entspricht Ihren Suchkriterien"
-    })
     
-    # Initialize the nested module server function
-    mod_result_table_chart_server("table_chart", data_table, chart_data)
+    # Reactive for checking data availability
+    data_availability <- reactive({
+      req(data_table())
+      data <- data_table()
+      if (nrow(data) > 0) {
+        available <- 1
+      } else {
+        available <- 0
+      }
+      
+      return(available)
+    }) |> 
+      bindEvent(data_table())
+    
+    
+    # Observe and update the infotext and UI elements based on data availability
+    observe({
+      if (data_availability() > 0) {
+        shinyjs::show(ns("table_chart"))  # Show the module container
+        output$tableTitle <- renderText({
+          "Die folgende Tabelle entspricht Ihren Suchkriterien"
+        })
+        
+        # Initialize the nested module server function
+        mod_result_table_chart_server("table_chart", data_table, chart_data)
+        
+      } else {
+        shinyjs::hide(ns("table_chart"))  # Hide the module container
+        output$tableTitle <- renderText({
+          "Es gibt keine Daten mit den ausgewählten Suchkriterien."
+        })
+      }
+    }) |> 
+      bindEvent(data_availability())
     
   })
 }
