@@ -38,10 +38,9 @@ mod_result_ui <- function(id) {
       class = "tableTitle_div",
       textOutput(ns("tableTitle"))
     ),
-    reactableOutput(ns("results_table")),
-
-    # div for d3 chart; namespace is dealt with in server/JS message handler
-    div(id = ns("sszvis-chart"))
+    
+    # Table and chart
+    mod_result_table_chart_ui(ns("table_chart"))
   )
 }
 
@@ -82,19 +81,10 @@ mod_result_server <- function(id, data_table, chart_data, parameters) {
     output$tableTitle <- renderText({
       "Die folgende Tabelle entspricht Ihren Suchkriterien"
     })
-
-    output$results_table <- renderReactable(
-      reactable_table(data_table())
-    )
-
-
-    # create and send data for bar chart
-    observe({
-      chart_data <- chart_data()
-      id <- paste0("#", ns("sszvis-chart"))
-      update_chart(list("data" = chart_data, "container_id" = id), "update_data", session)
-    }) |>
-      bindEvent(chart_data())
+    
+    # Initialize the nested module server function
+    mod_result_table_chart_server("table_chart", data_table, chart_data)
+    
   })
 }
 
