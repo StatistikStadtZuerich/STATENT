@@ -38,10 +38,9 @@ mod_result_ui <- function(id) {
       class = "tableTitle_div",
       textOutput(ns("tableTitle"))
     ),
-    reactableOutput(ns("results_table")),
-
-    # div for d3 chart; namespace is dealt with in server/JS message handler
-    div(id = ns("sszvis-chart"))
+    
+    # Table and chart
+    mod_result_table_chart_ui(ns("table_chart"))
   )
 }
 
@@ -78,23 +77,42 @@ mod_result_server <- function(id, data_table, chart_data, parameters) {
     }) |>
       bindEvent(parameters$input_size(), parameters$input_legal())
 
-    # title for table
-    output$tableTitle <- renderText({
-      "Die folgende Tabelle entspricht Ihren Suchkriterien"
-    })
-
-    output$results_table <- renderReactable(
-      reactable_table(data_table())
-    )
-
-
-    # create and send data for bar chart
+    
+    # Reactive for checking data availability
+    data_availability <- reactive({
+      req(data_table())
+      data <- data_table()
+      if (nrow(data) > 0) {
+        available <- 1
+      } else {
+        available <- 0
+      }
+      
+      return(available)
+    }) |> 
+      bindEvent(data_table())
+    
+    
+    # Observe and update the infotext and UI elements based on data availability
     observe({
-      chart_data <- chart_data()
-      id <- paste0("#", ns("sszvis-chart"))
-      update_chart(list("data" = chart_data, "container_id" = id), "update_data", session)
-    }) |>
-      bindEvent(chart_data())
+      if (data_availability() > 0) {
+        shinyjs::show(ns("table_chart"))  # Show the module container
+        output$tableTitle <- renderText({
+          "Die folgende Tabelle entspricht Ihren Suchkriterien"
+        })
+        
+        # Initialize the nested module server function
+        mod_result_table_chart_server("table_chart", data_table, chart_data)
+        
+      } else {
+        shinyjs::hide(ns("table_chart"))  # Hide the module container
+        output$tableTitle <- renderText({
+          "Es gibt keine Daten mit den ausgewählten Suchkriterien."
+        })
+      }
+    }) |> 
+      bindEvent(data_availability())
+    
   })
 }
 

@@ -137,7 +137,7 @@ Global variables exposed by Shiny (dependencies): d3, sszvis
   ----------------------------------------------- */
   function render(state) {
     var props = queryProps(sszvis.measureDimensions(config.targetElement));
-    var bounds = sszvis.bounds({ top: 80, bottom: props.bottomPadding  }, config.targetElement);
+    var bounds = sszvis.bounds({ top: 100, bottom: props.bottomPadding  }, config.targetElement);
 	  var chartWidth = Math.min(bounds.innerWidth, MAX_WIDTH);
 	
     // Scales
