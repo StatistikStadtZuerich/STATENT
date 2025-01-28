@@ -13,13 +13,13 @@ include:
     ref: "main"
     file: "publish-to-github.yml"
 
-deploy-job-int:
+shiny-deploy-int:
   extends:
-    - .deploy-job-int
+    - .shiny-deploy-int
 
-deploy-job-prod:
+shiny-deploy-prod:
   extends:
-    - .deploy-job-prod
+    - .shiny-deploy-prod
 
 publish-main-to-github:
   extends:
