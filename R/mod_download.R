@@ -20,11 +20,11 @@ mod_download_ui <- function(id) {
       id = "downloadWrapperId",
       class = "downloadWrapperDiv",
       sszDownloadButton(ns("csvDownload"),
-        label = "csv",
+        label = "CSV",
         image = img(ssz_icons$download)
       ),
       sszDownloadButton(ns("excelDownload"),
-        label = "xlsx",
+        label = "XLSX",
         image = img(ssz_icons$download)
       ),
       sszOgdDownload(
