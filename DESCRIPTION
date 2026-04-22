@@ -2,11 +2,12 @@ Package: statenttool
 Title: STATENT-Tool
 Version: 0.0.0.9000
 Authors@R: 
-    person("Aline", "Metzler", , "aline.metzler@zuerich.ch", role = c("cre", "aut"))
+    person("Aline", "Metzler", , "aline.metzler@zuerich.ch", role = c("cre", "aut")),
+    person("Statistik stadt Zürich", , , "statistik@zuerich.ch", role = c("cph", "fnd"))
 Description: Ein Tool zum Zusammenstellen von Anzahl Arbeitsstätten,
     Beschäftigten und Betrieben nach Zeit, Raum, Branche, Rechtsform und
     Betriebsgrösse
-License: What license is it under?
+License: BSD-3-Clause license
 Imports: 
     config (>= 0.3.2),
     data.table,
