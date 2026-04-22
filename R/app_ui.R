@@ -27,10 +27,14 @@ app_ui <- function(request) {
         condition = "input.query_start == 0",
         sszActionButton("query_start", "Abfrage starten")
       ),
-      conditionalPanel(
-        condition = "input.query_start",
-        mod_download_ui("download")
+      tags$div(
+        class = "button-div",
+        conditionalPanel(
+          condition = "input.query_start",
+          mod_download_ui("download")
+        )
       ),
+      
    
       br(),
       conditionalPanel(

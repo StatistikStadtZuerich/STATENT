@@ -30,11 +30,11 @@ reactable_table <- function(target_data) {
       Jahr = colDef(name = "Jahr", align = "left"),
       Arbeitsstaetten = colDef(name = "Arbeits-\nstätten"),
       AnzBesch = colDef(name = "Total"),
-      AnzBeschW = colDef(name = "Frauen"),
-      AnzBeschM = colDef(name = "Männer"),
+      AnzBeschW = colDef(name = "Frauen", class = "hide-mobile"),
+      AnzBeschM = colDef(name = "Männer", class = "hide-mobile"),
       AnzVZA = colDef(name = "Total"),
-      AnzVZAW = colDef(name = "Frauen"),
-      AnzVZAM = colDef(name = "Männer")
+      AnzVZAW = colDef(name = "Frauen", class = "hide-mobile"),
+      AnzVZAM = colDef(name = "Männer", class = "hide-mobile")
     ),
     columnGroups = list(
       colGroup(

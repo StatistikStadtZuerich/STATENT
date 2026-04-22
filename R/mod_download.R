@@ -15,23 +15,23 @@ mod_download_ui <- function(id) {
   ssz_icons <- icon_set("inst/app/www/icons/")
 
   tagList(
-    h3("Daten herunterladen"),
+    br(),
     tags$div(
       id = "downloadWrapperId",
       class = "downloadWrapperDiv",
       sszDownloadButton(ns("csvDownload"),
         label = "CSV",
-        image = img(ssz_icons$download)
+        image = icons_stzh()("download")
       ),
       sszDownloadButton(ns("excelDownload"),
         label = "XLSX",
-        image = img(ssz_icons$download)
+        image = icons_stzh()("download")
       ),
       sszOgdDownload(
         outputId = ns("ogdDown"),
         label = "OGD",
         href = "https://data.stadt-zuerich.ch/dataset?q=statent",
-        image = img(ssz_icons$link)
+        image = icons_stzh()("external-link")
       )
     )
   )
