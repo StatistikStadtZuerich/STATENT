@@ -6,10 +6,15 @@
 \alias{statenttool-package}
 \title{statenttool: STATENT-Tool}
 \description{
-Ein Tool zum Zusammenstellen von Anzahl Arbeitsstätten, Beschäftigten und Betrieben nach Zeit, Raum, Branche, Rechtsform und Betriebsgrösse
+Ein Tool zum Zusammenstellen von Anzahl Arbeitsstätten, Beschäftigten und Betrieben nach Zeit, Raum, Branche, Rechtsform und Betriebsgrösse.
 }
 \author{
 \strong{Maintainer}: Aline Metzler \email{aline.metzler@zuerich.ch}
+
+Other contributors:
+\itemize{
+  \item Statistik stadt Zürich \email{statistik@zuerich.ch} [copyright holder, funder]
+}
 
 }
 \keyword{internal}

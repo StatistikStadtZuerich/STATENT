@@ -2,15 +2,18 @@ Package: statenttool
 Title: STATENT-Tool
 Version: 0.0.0.9000
 Authors@R: 
-    person("Aline", "Metzler", , "aline.metzler@zuerich.ch", role = c("cre", "aut"))
+    c(person("Aline", "Metzler", , "aline.metzler@zuerich.ch", role = c("cre", "aut")),
+    person("Statistik stadt Zürich", , , "statistik@zuerich.ch", role = c("cph", "fnd"))
+  )
 Description: Ein Tool zum Zusammenstellen von Anzahl Arbeitsstätten,
     Beschäftigten und Betrieben nach Zeit, Raum, Branche, Rechtsform und
-    Betriebsgrösse
-License: What license is it under?
+    Betriebsgrösse.
+License: MIT + file LICENSE
 Imports: 
     config (>= 0.3.2),
     data.table,
     dplyr,
+    icons,
     golem (>= 0.4.1),
     jpeg,
     jsonlite,
@@ -30,9 +33,11 @@ Suggests:
     shinytest2,
     styler,
     testthat (>= 3.0.0)
+Remotes: 
+    github::mitchelloharawild/icons
 Config/testthat/edition: 3
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
 Depends: 
-    R (>= 2.10)
+    R (>= 4.1)

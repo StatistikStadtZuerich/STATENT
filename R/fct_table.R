@@ -14,6 +14,7 @@ reactable_table <- function(target_data) {
     target_data |>
       mutate(Jahr = as.character(.data[["Jahr"]])),
     paginationType = "simple",
+    class = "table-striped",
     language = reactableLang(
       noData = "Keine Einträge gefunden",
       pageNumbers = "{page} von {pages}",
@@ -29,25 +30,33 @@ reactable_table <- function(target_data) {
     columns = list(
       Jahr = colDef(name = "Jahr", align = "left"),
       Arbeitsstaetten = colDef(name = "Arbeits-\nstätten"),
-      AnzBesch = colDef(name = "Total"),
-      AnzBeschW = colDef(name = "Frauen"),
-      AnzBeschM = colDef(name = "Männer"),
-      AnzVZA = colDef(name = "Total"),
-      AnzVZAW = colDef(name = "Frauen"),
-      AnzVZAM = colDef(name = "Männer")
+      AnzBesch = colDef(
+        name = "<span class='hide-mobile'>Total</span><span class='show-mobile'>Beschäftigte</span>",
+        html = TRUE
+      ),
+      AnzBeschW = colDef(name = "Frauen", class = "hide-mobile", headerClass = "hide-mobile"),
+      AnzBeschM = colDef(name = "Männer", class = "hide-mobile", headerClass = "hide-mobile"),
+      AnzVZA = colDef(
+        name = "<span class='hide-mobile'>Total</span><span class='show-mobile'>Vollzeit-\näquivalente</span>",
+        html = TRUE
+      ),
+      AnzVZAW = colDef(name = "Frauen", class = "hide-mobile", headerClass = "hide-mobile"),
+      AnzVZAM = colDef(name = "Männer", class = "hide-mobile", headerClass = "hide-mobile")
     ),
     columnGroups = list(
       colGroup(
-        name = "Beschäftigte",
+        name = "<span class='hide-mobile'>Beschäftigte</span>",
         columns = c("AnzBesch", "AnzBeschW", "AnzBeschM"),
         align = "left",
-        headerVAlign = "bottom"
+        headerVAlign = "bottom",
+        html = TRUE
       ),
       colGroup(
-        name = "Vollzeitäquivalente",
+        name = "<span class='hide-mobile'>Vollzeitäquivalente</span>",
         columns = c("AnzVZA", "AnzVZAW", "AnzVZAM"),
         align = "left",
-        headerVAlign = "bottom"
+        headerVAlign = "bottom",
+        html = TRUE
       )
     ),
     defaultColDef = colDef(
@@ -65,8 +74,6 @@ reactable_table <- function(target_data) {
         }
       }
     ),
-    outlined = TRUE,
-    highlight = TRUE,
     defaultPageSize = 15,
     rowClass = JS("function(rowInfo) {return rowInfo.selected ? 'selected' : ''}"),
     rowStyle = JS("function(rowInfo) {if (rowInfo.selected) { return { backgroundColor: '#F2F2F2'}}}")

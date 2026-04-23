@@ -16,27 +16,23 @@ mod_result_ui <- function(id) {
     # Table Title (Sector)
     tags$div(
       id = ns("title_id"),
-      class = "title_div",
-      textOutput(ns("title"))
+      htmlOutput(ns("title"))
     ),
 
     # Table Subtitle (Legal & Size)
     tags$div(
       id = ns("subtitle_id"),
-      class = "subtitle_div",
-      textOutput(ns("subtitle"))
+      htmlOutput(ns("subtitle"))
     ),
 
     # Table Subsubtitle (Area)
     tags$div(
       id = ns("subSubtitle_id"),
-      class = "subSubtitle_div",
-      textOutput(ns("subSubtitle"))
+      htmlOutput(ns("subSubtitle"))
     ),
     tags$div(
       id = ns("tableTitle_id"),
-      class = "tableTitle_div",
-      textOutput(ns("tableTitle"))
+      htmlOutput(ns("tableTitle"))
     ),
     
     # Table and chart
@@ -61,19 +57,19 @@ mod_result_server <- function(id, data_table, chart_data, parameters) {
 
     # Title
     output$title <- renderText({
-      parameters$input_area()
+      paste0("<h1>", parameters$input_area(), "</h1>")
     }) |>
       bindEvent(parameters$input_area())
 
     # Subtitle
     output$subtitle <- renderText({
-      paste0(parameters$input_sector())
+      paste0("<h2>", parameters$input_sector(), "</h2>")
     }) |>
       bindEvent(parameters$input_sector())
 
     # Sub-Subtitle
     output$subSubtitle <- renderText({
-      paste0(parameters$input_size(), ", ", parameters$input_legal())
+      paste0("<h3>", parameters$input_size(), ", ", parameters$input_legal(), "</h3>")
     }) |>
       bindEvent(parameters$input_size(), parameters$input_legal())
 
@@ -98,7 +94,7 @@ mod_result_server <- function(id, data_table, chart_data, parameters) {
       if (data_availability() > 0) {
         shinyjs::show(ns("table_chart"))  # Show the module container
         output$tableTitle <- renderText({
-          "Die folgende Tabelle entspricht Ihren Suchkriterien"
+          paste0("<p>", "Die folgende Tabelle entspricht Ihren Suchkriterien", "</p>")
         })
         
         # Initialize the nested module server function
@@ -107,7 +103,7 @@ mod_result_server <- function(id, data_table, chart_data, parameters) {
       } else {
         shinyjs::hide(ns("table_chart"))  # Hide the module container
         output$tableTitle <- renderText({
-          "Es gibt keine Daten mit den ausgewählten Suchkriterien."
+          paste0("<p>", "Es gibt keine Daten mit den ausgewählten Suchkriterien.", "</p>")
         })
       }
     }) |> 
